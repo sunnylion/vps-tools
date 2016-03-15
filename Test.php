@@ -1,5 +1,5 @@
 <?php
-	namespace vps;
+	namespace miptliot\vps;
 
 	class Test
 	{

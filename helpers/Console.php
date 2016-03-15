@@ -1,5 +1,5 @@
 <?php
-	namespace vps\helpers;
+	namespace miptliot\vps\helpers;
 
 	class Console extends \yii\helpers\Console
 	{
