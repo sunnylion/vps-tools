@@ -2,9 +2,6 @@
 	"name": "miptliot/vps-tools",
 	"description": "Tools and other stuff that are used in every project.",
 	"type": "git",
-	"require": {
-		"yiisoft/yii2": "^2.0"
-	},
 	"license": "MIT",
 	"authors": [
 		{
@@ -12,5 +9,9 @@
 			"email": "anna.manaenkova@phystech.edu"
 		}
 	],
-	"minimum-stability": "dev"
+	"autoload": {
+		"psr-4": {
+			"vps\\": ""
+		}
+	}
 }
