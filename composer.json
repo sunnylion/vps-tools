@@ -9,9 +9,10 @@
 			"email": "anna.manaenkova@phystech.edu"
 		}
 	],
+	"minimum-stability": "dev",
 	"autoload": {
 		"psr-4": {
-			"vps\\": "/"
+			"vps\\": ""
 		}
 	}
 }
