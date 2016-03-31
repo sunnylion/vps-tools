@@ -1,6 +1,12 @@
 <?php
-	namespace common\components;
+	namespace vps\components;
 
+	/**
+	 * Class SettingManager
+	 * @package vps\components
+	 * @property-read Setting[] $all
+	 * @property-write string   $modelClass
+	 */
 	class SettingManager extends \yii\base\Object
 	{
 		/**
@@ -33,7 +39,7 @@
 		{
 			foreach ($this->_data as $d)
 			{
-				if ($d->name == $name)
+				if ($d->name === $name)
 					return $d->value;
 			}
 
