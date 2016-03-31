@@ -23,7 +23,7 @@
 			$this->_options[ CURLOPT_URL ] = $url;
 			$this->_options[ CURLOPT_RETURNTRANSFER ] = 1;
 			$this->_options[ CURLOPT_HEADER ] = 1;
-			$this->_options[ CURLOPT_USERAGENT ] = 'Yii2 Curl Request';
+			$this->_options[ CURLOPT_USERAGENT ] = 'VPS Curl Request';
 		}
 
 		/**

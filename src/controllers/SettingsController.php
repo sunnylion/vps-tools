@@ -2,22 +2,36 @@
 	namespace vps\controllers;
 
 	use Yii;
-	use common\models\Setting;
 	use vps\helpers\Console;
 
 	/**
-	 * Allows to manage settings.
+	 * Allows to manage settings via console.
 	 */
 	class SettingsController extends \yii\console\Controller
 	{
 		public $defaultAction = 'list';
+
+		private $_modelClass = 'common\models\Setting';
+
+		/**
+		 * Setting for model class.
+		 * @param $class
+		 * @throws \yii\base\InvalidConfigException
+		 */
+		public function setModelClass ($class)
+		{
+			if (!class_exists($class))
+				throw new \yii\base\InvalidConfigException('Given model class not found.');
+			$this->_modelClass = $class;
+		}
 
 		/**
 		 * List all settings in database.
 		 */
 		public function actionList ()
 		{
-			$list = Setting::find()->select('name,value')->orderBy([ 'name' => SORT_ASC ])->asArray()->all();
+			$class = $this->_modelClass;
+			$list = $class::find()->select('name,value')->orderBy([ 'name' => SORT_ASC ])->asArray()->all();
 			Console::printTable($list, [ 'Name', 'Value' ]);
 		}
 
@@ -28,10 +42,11 @@
 		 */
 		public function actionSet ($name, $value)
 		{
-			$object = Setting::find()->where([ 'name' => $name ])->one();
+			$class = $this->_modelClass;
+			$object = $class::find()->where([ 'name' => $name ])->one();
 			if ($object == null)
 			{
-				$object = new Setting([
+				$object = new $class([
 					'name'  => $name,
 					'value' => $value
 				]);

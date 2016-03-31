@@ -22,7 +22,7 @@
 		/**
 		 * @var int Response HTTP status.
 		 */
-		private $_status;
+		private $_status = self::S_UNKNOWN;
 
 		/**
 		 * Return response body.
