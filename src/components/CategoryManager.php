@@ -14,14 +14,14 @@
 	class CategoryManager extends \yii\base\Object
 	{
 		/**
-		 * @var string
-		 */
-		private $_modelClass = '\common\models\Category';
-
-		/**
 		 * @var Category[] Category tree.
 		 */
 		private $_data = [ ];
+
+		/**
+		 * @var string
+		 */
+		private $_modelClass = '\common\models\Category';
 
 		/**
 		 * @var [[Category]] Root category.
@@ -47,12 +47,13 @@
 			}
 			else
 				$this->_data = $this->_root->children()->all();
+
 			$this->buildPaths();
 		}
 
 		/**
-		 * @property-read \common\models\Category[] $all
-		 * @return \common\models\Category[]
+		 * @property-read Category[] $all
+		 * @return Category[]
 		 */
 		public function getAll ()
 		{
@@ -82,18 +83,21 @@
 		 */
 		public function getParent ($category, $depth = 1)
 		{
-			if ($category->depth == $depth)
-				return $category;
-			foreach ($this->_data as $item)
-				if ($category->lft > $item->lft and $category->rgt < $item->rgt and $item->depth == $depth)
-					return $item;
+			if ($category instanceof $this->_modelClass and $depth > 0)
+			{
+				if ($category->depth == $depth)
+					return $category;
+				foreach ($this->_data as $item)
+					if ($category->lft > $item->lft and $category->rgt < $item->rgt and $item->depth == $depth)
+						return $item;
+			}
 
 			return null;
 		}
 
 		/**
-		 * @property-read \common\models\Category $root
-		 * @return \common\models\Category
+		 * @property-read Category $root
+		 * @return Category
 		 */
 		public function getRoot ()
 		{
@@ -122,7 +126,7 @@
 		public function getByGuidPath ($guidPath)
 		{
 			foreach ($this->_data as $category)
-				if ($category->guidPath == $guidPath)
+				if ($category->guidPath === $guidPath)
 					return $category;
 
 			return null;
@@ -155,15 +159,6 @@
 		}
 
 		/**
-		 * Recount videos number for every category.
-		 */
-		public function recountVideos ()
-		{
-			foreach ($this->_data as $item)
-				$item->recountVideos();
-		}
-
-		/**
 		 * Reloads data from database.
 		 */
 		public function reload ()
@@ -174,18 +169,38 @@
 			$this->_data = $this->_root->children()->all();
 		}
 
+		/**
+		 * Finds category GUID path by given ID.
+		 * @param integer $id
+		 * @return null|string
+		 */
 		public function guidPath ($id)
 		{
 			$category = $this->get($id);
 
-			return ( $category == null ) ? null : $category->guidPath;
+			if ($category == null)
+				return null;
+			elseif (empty( $category->guidPath ))
+				$this->buildPaths();
+
+			return $category->guidPath;
 		}
 
+		/**
+		 * Finds category title path by given ID.
+		 * @param integer $id
+		 * @return null|string
+		 */
 		public function titlePath ($id)
 		{
 			$category = $this->get($id);
 
-			return ( $category == null ) ? null : $category->titlePath;
+			if ($category == null)
+				return null;
+			elseif (empty( $category->titlePath ))
+				$this->buildPaths();
+
+			return $category->titlePath;
 		}
 
 		/**

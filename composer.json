@@ -10,10 +10,17 @@
 		}
 	],
 	"minimum-stability": "dev",
-	"require": {},
+	"require": {
+		"yiisoft/yii2": "~2.0.0",
+		"creocoder/yii2-nested-sets": "*"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "*",
+		"phpunit/dbunit": "*"
+	},
 	"autoload": {
 		"psr-4": {
-			"vps\\": ""
+			"vps\\": "src"
 		}
 	}
 }
