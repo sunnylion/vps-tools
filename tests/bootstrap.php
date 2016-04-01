@@ -8,7 +8,7 @@
 	Yii::setAlias('@tests', __DIR__);
 	new \yii\console\Application(require_once __DIR__ . '/config/tests.php');
 
-	// Init DB with data.
+	// Init DB with data. Since category and setting managers work only for read data there is no need to use fixtures.
 	foreach (glob(__DIR__ . '/migrations/*.sql') as $migration)
 	{
 		foreach (file($migration) as $file)
