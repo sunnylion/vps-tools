@@ -1,7 +1,7 @@
 <?php
 	namespace vps\helpers;
 
-	class Console extends \yii\helpers\Console
+	class Console extends \yii\helpers\BaseConsole
 	{
 		/**
 		 * Outputs colored string to STDOUT.

@@ -3,6 +3,7 @@
     <testsuites>
         <testsuite>
             <directory suffix="Test.php">components</directory>
+            <directory suffix="Test.php">helpers</directory>
         </testsuite>
     </testsuites>
 </phpunit>
