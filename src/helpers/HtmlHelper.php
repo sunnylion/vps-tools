@@ -1,5 +1,5 @@
 <?php
-	namespace common\helpers;
+	namespace vps\helpers;
 
 	use Yii;
 
@@ -12,18 +12,41 @@
 		public static function a ($text, $url = null, $options = [ ])
 		{
 			if (isset( $options[ 'raw' ] ) and $options[ 'raw' ] == true)
+			{
+				unset( $options[ 'raw' ] );
+
 				return parent::a($text, $url, $options);
+			}
 			else
-				return parent::a(t($text), $url, $options);
+			{
+				unset( $options[ 'raw' ] );
+
+				return parent::a(Yii::t('app', $text), $url, $options);
+			}
 		}
 
+		/**
+		 * Creates button with FontAwesome icon.
+		 * @param string $text    Button text.
+		 * @param string $fa      Icon name.
+		 * @param array  $options Additional options.
+		 * @return string
+		 */
 		public static function buttonFa ($text, $fa, $options = [ ])
 		{
 			$icon = self::tag('i', '', [ 'class' => 'fa fa-' . $fa . ' margin' ]);
 
 			if (isset( $options[ 'raw' ] ) and $options[ 'raw' ] == true)
+			{
+				unset( $options[ 'raw' ] );
+
 				return parent::button($icon . $text, $options);
+			}
 			else
-				return parent::button($icon . t($text), $options);
+			{
+				unset( $options[ 'raw' ] );
+
+				return parent::button($icon . Yii::t('app', $text), $options);
+			}
 		}
 	}
