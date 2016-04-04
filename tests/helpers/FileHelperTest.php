@@ -5,7 +5,7 @@
 
 	class FileHelperTest extends \PHPUnit_Framework_TestCase
 	{
-		public $datapath = __DIR__ . '/../data';
+		public $datapath = __DIR__ . '/../data/file_helper';
 
 		public static function init ()
 		{
@@ -36,7 +36,7 @@
 			if (is_dir($datapath))
 				shell_exec('rm -rf ' . escapeshellarg($datapath) . '/*');
 
-			if (is_dir($datapath) or mkdir($datapath))
+			if (is_dir($datapath) or mkdir($datapath, 0755, true))
 			{
 				mkdir($datapath . '/dir_1/dir_1_1', 0755, true);
 				mkdir($datapath . '/dir_1/dir_1_2/dir_1_2_2', 0755, true);
