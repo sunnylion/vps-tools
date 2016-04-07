@@ -99,6 +99,33 @@
 		}
 
 		/**
+		 * Gets random elements from array.
+		 * @param array   $array Input array.
+		 * @param integer $num   Number of element to extract.
+		 * @return array|null Array with random element from $array. Null if $array is not array.
+		 */
+		public static function mix ($array, $num)
+		{
+			if (is_array($array))
+			{
+				$data = [ ];
+				$num = min($num, count($array));
+				if ($num > 0)
+				{
+					$keys = array_rand($array, $num);
+					if (!is_array($keys))
+						$keys = [ $keys ];
+					foreach ($keys as $key)
+						$data[] = $array[ $key ];
+				}
+
+				return $data;
+			}
+
+			return null;
+		}
+
+		/**
 		 * Set array to multidimensional array.
 		 * @param array  $array
 		 * @param string $key   Key name of the array element, may be specified in a dot format to retrieve the value

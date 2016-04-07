@@ -56,6 +56,28 @@
 			$this->assertEquals([ 1, 10, 20, 10, 6, 0, 10 ], ArrayHelper::flatten($array));
 		}
 
+		public function testMix ()
+		{
+			$this->assertNull(ArrayHelper::mix('asdasd', 1));
+			$this->assertNull(ArrayHelper::mix(null, 1));
+			$this->assertNull(ArrayHelper::mix(123, 1));
+
+			$this->assertEquals([ ], ArrayHelper::mix([ ], 1));
+			$this->assertEquals([ ], ArrayHelper::mix([ 1 ], 0));
+
+			$array = [ '12', 50, [ 'sad', 'fdv', 0 ], 'ds', 32 ];
+
+			$mix = ArrayHelper::mix($array, 2);
+			$this->assertCount(2, $mix);
+			foreach ($mix as $item)
+				$this->assertContains($item, $array);
+
+			$mix = ArrayHelper::mix($array, 120);
+			$this->assertCount(5, $mix);
+			foreach ($mix as $item)
+				$this->assertContains($item, $array);
+		}
+
 		public function testSetValue ()
 		{
 			$array = [ 1, 'a' => [ 'b' => [ 'b1' => 10, 'b2' => 20 ], 'c' => [ 10, 6 ] ], 'key' => 0, 10 ];
