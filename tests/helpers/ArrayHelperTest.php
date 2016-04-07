@@ -67,6 +67,20 @@
 			$this->assertNull(ArrayHelper::delete($array, [ 12, 2312, 23 ]));
 		}
 
+		public function testEqual ()
+		{
+			$this->assertNull(ArrayHelper::equal('asdas'));
+			$this->assertNull(ArrayHelper::equal(null));
+
+			$this->assertFalse(ArrayHelper::equal([ 1, 2, 3 ]));
+			$this->assertFalse(ArrayHelper::equal([ 0, '0' ], true));
+			$this->assertTrue(ArrayHelper::equal([ 1 ]));
+			$this->assertTrue(ArrayHelper::equal([ 1 ], true));
+			$this->assertTrue(ArrayHelper::equal([ 0, '0' ]));
+			$this->assertTrue(ArrayHelper::equal([ 1, 1, 1 ]));
+			$this->assertTrue(ArrayHelper::equal([ 'a', 'a', 'a' ]));
+		}
+
 		public function testEmptyToNull ()
 		{
 			$this->assertNull(ArrayHelper::emptyToNull(null));

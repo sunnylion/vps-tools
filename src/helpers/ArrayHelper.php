@@ -81,6 +81,35 @@
 		}
 
 		/**
+		 * Checks if all elements in array are equal.
+		 * @param array   $array
+		 * @param boolean $strict Whether strict comparison should be used.
+		 * @return boolean|null
+		 */
+		public static function equal ($array, $strict = false)
+		{
+			if (is_array($array))
+			{
+				if ($strict)
+				{
+					$data = array_values($array);
+					for ($i = 0; $i < count($data); $i++)
+					{
+						for ($j = $i + 1; $j < count($data); $j++)
+							if ($data[ $i ] !== $data[ $j ])
+								return false;
+					}
+
+					return true;
+				}
+				else
+					return ( count(array_unique($array)) === 1 );
+			}
+			else
+				return null;
+		}
+
+		/**
 		 * Selects from the array given keys.
 		 * @param  array $array
 		 * @param  array $keys
