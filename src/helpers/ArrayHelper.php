@@ -81,6 +81,29 @@
 		}
 
 		/**
+		 * Selects from the array given keys.
+		 * @param  array $array
+		 * @param  array $keys
+		 * @return array Values found with their corresponding keys.
+		 */
+		public static function filterKeys ($array, $keys)
+		{
+			if (is_array($array))
+			{
+				$return = [ ];
+				if (!is_array($keys))
+					$keys = [ $keys ];
+				foreach ($keys as $key)
+					if (isset( $array[ $key ] ))
+						$return[ $key ] = $array[ $key ];
+
+				return $return;
+			}
+
+			return null;
+		}
+
+		/**
 		 * Flattens multidimensional array. Does not preserve key.
 		 * @param  array $array Array to be flattened.
 		 * @return array Flattened array.

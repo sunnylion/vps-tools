@@ -47,6 +47,15 @@
 			$this->assertEquals([ 1, 'a' => [ 'b' => [ 'b1' => null, 'b2' => 20 ], 'c' => [ 10, 6 ] ], 'key' => null, 10 ], ArrayHelper::emptyToNull([ 1, 'a' => [ 'b' => [ 'b1' => 0, 'b2' => 20 ], 'c' => [ 10, 6 ] ], 'key' => '', 10 ]));
 		}
 
+		public function testFilterKeys ()
+		{
+			$this->assertNull(ArrayHelper::filterKeys('asdsadsa', 'asda'));
+			$this->assertEquals([ ], ArrayHelper::filterKeys([ 1, 3, 3, 3 ], 'asda'));
+			$this->assertEquals([ 1 => 3 ], ArrayHelper::filterKeys([ 1, 3, 3, 3 ], 1));
+			$this->assertEquals([ 1 => 3, 3 => 8 ], ArrayHelper::filterKeys([ 1, 3, 3, 8 ], [ 1, 3 ]));
+			$this->assertEquals([ 'p' => 'o' ], ArrayHelper::filterKeys([ 1, 'b' => 3, 'p' => 'o', 8 ], [ 'p', 3 ]));
+		}
+
 		public function testFlatten ()
 		{
 			$this->assertNull(ArrayHelper::flatten(null));
