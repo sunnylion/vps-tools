@@ -81,6 +81,58 @@
 		}
 
 		/**
+		 * Checks if all elements in array are equal.
+		 * @param array   $array
+		 * @param boolean $strict Whether strict comparison should be used.
+		 * @return boolean|null
+		 */
+		public static function equal ($array, $strict = false)
+		{
+			if (is_array($array))
+			{
+				if ($strict)
+				{
+					$data = array_values($array);
+					for ($i = 0; $i < count($data); $i++)
+					{
+						for ($j = $i + 1; $j < count($data); $j++)
+							if ($data[ $i ] !== $data[ $j ])
+								return false;
+					}
+
+					return true;
+				}
+				else
+					return ( count(array_unique($array)) === 1 );
+			}
+			else
+				return null;
+		}
+
+		/**
+		 * Selects from the array given keys.
+		 * @param  array $array
+		 * @param  array $keys
+		 * @return array Values found with their corresponding keys.
+		 */
+		public static function filterKeys ($array, $keys)
+		{
+			if (is_array($array))
+			{
+				$return = [ ];
+				if (!is_array($keys))
+					$keys = [ $keys ];
+				foreach ($keys as $key)
+					if (isset( $array[ $key ] ))
+						$return[ $key ] = $array[ $key ];
+
+				return $return;
+			}
+
+			return null;
+		}
+
+		/**
 		 * Flattens multidimensional array. Does not preserve key.
 		 * @param  array $array Array to be flattened.
 		 * @return array Flattened array.
@@ -96,6 +148,134 @@
 				$flatten[] = $v;
 
 			return $flatten;
+		}
+
+		/**
+		 * Checks if all keys exist in given array.
+		 * @param array $array
+		 * @param array $keys
+		 * @return bool|null
+		 */
+		public static function keysExist ($array, $keys)
+		{
+			if (!is_array($array))
+				return null;
+
+			if (!is_array($keys))
+				$keys = [ $keys ];
+
+			foreach ($keys as $key)
+				if (!array_key_exists($key, $array))
+					return false;
+
+			return true;
+		}
+
+		/**
+		 * Merges columns of the same length in multi-array.
+		 * @param  array $column1
+		 * @param  array $column2
+		 * @param  array $column3 ...
+		 * @return array | null
+		 */
+		public static function mergeColumns ()
+		{
+			$count = [ ];
+			$args = func_get_args();
+
+			if (count($args) == 0)
+				return [ ];
+
+			foreach ($args as $arg)
+			{
+				if (!is_array($arg))
+					return null;
+				$count[] = count($arg);
+			}
+
+			if (!self::equal($count))
+				return null;
+
+			$data = [ ];
+			$n = $count[ 0 ];
+			for ($i = 0; $i < $n; $i++)
+			{
+				$item = [ ];
+				foreach ($args as $arg)
+					$item[] = $arg[ $i ];
+				$data[] = $item;
+			}
+
+			return $data;
+		}
+
+		/**
+		 * Gets random elements from array.
+		 * @param array   $array Input array.
+		 * @param integer $num   Number of element to extract.
+		 * @return array|null Array with random element from $array. Null if $array is not array.
+		 */
+		public static function mix ($array, $num)
+		{
+			if (is_array($array))
+			{
+				$data = [ ];
+				$num = min($num, count($array));
+				if ($num > 0)
+				{
+					$keys = array_rand($array, $num);
+					if (!is_array($keys))
+						$keys = [ $keys ];
+					foreach ($keys as $key)
+						$data[] = $array[ $key ];
+				}
+
+				return $data;
+			}
+
+			return null;
+		}
+
+		/**
+		 * Get given attribute from array of objects.
+		 * @param  array  $objects
+		 * @param  string $attribute Attribute name.
+		 * @return array
+		 */
+		public static function objectsAttribute ($objects, $attribute)
+		{
+			if (!is_array($objects))
+				return null;
+
+			$data = [ ];
+			foreach ($objects as $object)
+				$data[] = isset ( $object->$attribute ) ? $object->$attribute : null;
+
+			return $data;
+		}
+
+		/**
+		 * Recursively finds given attribute from array of objects.
+		 * @param  array  $objects
+		 * @param  string $attribute Attribute name.
+		 * @param  string $children  Children attribute name.
+		 * @return array
+		 */
+		public static function objectsAttributeRecursive ($objects, $attribute, $children = 'children')
+		{
+			if (!is_array($objects))
+				return null;
+
+			$data = [ ];
+			foreach ($objects as $item)
+			{
+				if (isset( $item->$attribute ))
+					$data[] = $item->$attribute;
+				if (isset( $item->$children ))
+					$data = array_merge($data, self::objectsAttributeRecursive($item->$children, $attribute, $children));
+			}
+
+			return $data;
 		}
 
 		/**
