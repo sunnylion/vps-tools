@@ -149,6 +149,48 @@
 		}
 
 		/**
+		 * Get given attribute from array of objects.
+		 * @param  array  $objects
+		 * @param  string $attribute Attribute name.
+		 * @return array
+		 */
+		public static function objectsAttribute ($objects, $attribute)
+		{
+			if (!is_array($objects))
+				return null;
+
+			$data = [ ];
+			foreach ($objects as $object)
+				$data[] = isset ( $object->$attribute ) ? $object->$attribute : null;
+
+			return $data;
+		}
+
+		/**
+		 * Recursively finds given attribute from array of objects.
+		 * @param  array  $objects
+		 * @param  string $attribute Attribute name.
+		 * @param  string $children  Children attribute name.
+		 * @return array
+		 */
+		public static function objectsAttributeRecursive ($objects, $attribute, $children = 'children')
+		{
+			if (!is_array($objects))
+				return null;
+
+			$data = [ ];
+			foreach ($objects as $item)
+			{
+				if (isset( $item->$attribute ))
+					$data[] = $item->$attribute;
+				if (isset( $item->$children ))
+					$data = array_merge($data, self::objectsAttributeRecursive($item->$children, $attribute, $children));
+			}
+
+			return $data;
+		}
+
+		/**
 		 * Set array to multidimensional array.
 		 * @param array  $array
 		 * @param string $key   Key name of the array element, may be specified in a dot format to retrieve the value

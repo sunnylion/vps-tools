@@ -4,6 +4,34 @@
 	use vps\helpers\ArrayHelper;
 	use \yii\base\ErrorException;
 
+	class ArrayStruct
+	{
+		public $a;
+		public $b;
+		public $children;
+
+		public function __construct ($a, $b = null, $chilren = [ ])
+		{
+			$this->a = $a;
+			$this->b = $b;
+			$this->children = $chilren;
+		}
+	}
+
+	class ArrayStruct2
+	{
+		public $a;
+		public $b2;
+		public $children2;
+
+		public function __construct ($a, $b = null, $chilren = [ ])
+		{
+			$this->a = $a;
+			$this->b2 = $b;
+			$this->children2 = $chilren;
+		}
+	}
+
 	class ArrayHelperTest extends \PHPUnit_Framework_TestCase
 	{
 		public function testAddColumn ()
@@ -85,6 +113,64 @@
 			$this->assertCount(5, $mix);
 			foreach ($mix as $item)
 				$this->assertContains($item, $array);
+		}
+
+		public function testObjectsAttribute ()
+		{
+			$this->assertNull(ArrayHelper::objectsAttribute('adsadsa', 12312));
+			$this->assertNull(ArrayHelper::objectsAttribute(null, 12312));
+
+			$this->assertEquals([ 'sadad', 10 ], ArrayHelper::objectsAttribute([
+				new ArrayStruct('sadad', 12),
+				new ArrayStruct(10, 'sada')
+			], 'a'));
+
+			$this->assertEquals([ 12, 'sada', null ], ArrayHelper::objectsAttribute([
+				new ArrayStruct('sadad', 12),
+				new ArrayStruct(10, 'sada'),
+				new ArrayStruct2(1, 2)
+			], 'b'));
+		}
+
+		public function testObjectsAttributeRecursive ()
+		{
+			$this->assertNull(ArrayHelper::objectsAttributeRecursive('adsadsa', 12312));
+			$this->assertNull(ArrayHelper::objectsAttributeRecursive(null, 12312));
+
+			$this->assertEquals([ 'sadad', 10 ], ArrayHelper::objectsAttributeRecursive([
+				new ArrayStruct('sadad', 12, [ ]),
+				new ArrayStruct(10, 'sada')
+			], 'a'));
+
+			$this->assertEquals([ 'sadad', 'test', 'test2', 10 ], ArrayHelper::objectsAttributeRecursive([
+				new ArrayStruct('sadad', 12, [
+					new ArrayStruct('test', 123),
+					new ArrayStruct('test2', 123),
+				]),
+				new ArrayStruct(10, 'sada')
+			], 'a'));
+
+			$this->assertEquals([ 'sadad', 'test', 'test2', 'ch3', 'ch8', 10 ], ArrayHelper::objectsAttributeRecursive([
+				new ArrayStruct('sadad', 12, [
+					new ArrayStruct('test', 123),
+					new ArrayStruct('test2', 123, [
+						new ArrayStruct('ch3', 1),
+						new ArrayStruct('ch8', 1),
+					]),
+				]),
+				new ArrayStruct(10, 'sada')
+			], 'a'));
+
+			$this->assertEquals([ 'sadad', 'test', 'test2', 'ch3', 'ch8', 10 ], ArrayHelper::objectsAttributeRecursive([
+				new ArrayStruct2('sadad', 12, [
+					new ArrayStruct2('test', 123),
+					new ArrayStruct2('test2', 123, [
+						new ArrayStruct2('ch3', 1),
+						new ArrayStruct2('ch8', 1),
+					]),
+				]),
+				new ArrayStruct2(10, 'sada')
+			], 'a', 'children2'));
 		}
 
 		public function testSetValue ()
