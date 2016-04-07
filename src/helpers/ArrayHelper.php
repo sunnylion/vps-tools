@@ -151,6 +151,44 @@
 		}
 
 		/**
+		 * Merges columns of the same length in multi-array.
+		 * @param  array $column1
+		 * @param  array $column2
+		 * @param  array $column3 ...
+		 * @return array | null
+		 */
+		public static function mergeColumns ()
+		{
+			$count = [ ];
+			$args = func_get_args();
+
+			if (count($args) == 0)
+				return [ ];
+
+			foreach ($args as $arg)
+			{
+				if (!is_array($arg))
+					return null;
+				$count[] = count($arg);
+			}
+
+			if (!self::equal($count))
+				return null;
+
+			$data = [ ];
+			$n = $count[ 0 ];
+			for ($i = 0; $i < $n; $i++)
+			{
+				$item = [ ];
+				foreach ($args as $arg)
+					$item[] = $arg[ $i ];
+				$data[] = $item;
+			}
+
+			return $data;
+		}
+
+		/**
 		 * Gets random elements from array.
 		 * @param array   $array Input array.
 		 * @param integer $num   Number of element to extract.

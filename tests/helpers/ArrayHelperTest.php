@@ -107,6 +107,17 @@
 			$this->assertEquals([ 1, 10, 20, 10, 6, 0, 10 ], ArrayHelper::flatten($array));
 		}
 
+		public function testMergeColumns ()
+		{
+			$this->assertNull(ArrayHelper::mergeColumns('adsas'));
+			$this->assertNull(ArrayHelper::mergeColumns(null, 'sada'));
+			$this->assertNull(ArrayHelper::mergeColumns([ 1, 2, 3 ], 'ads'));
+			$this->assertNull(ArrayHelper::mergeColumns([ 1, 2, 3 ], [ 1, 2 ]));
+
+			$this->assertEquals([ ], ArrayHelper::mergeColumns([ ], [ ]));
+			$this->assertEquals([ [ 1, 4 ], [ 2, 5 ], [ 3, 6 ] ], ArrayHelper::mergeColumns([ 1, 2, 3 ], [ 4, 5, 6 ]));
+		}
+
 		public function testMix ()
 		{
 			$this->assertNull(ArrayHelper::mix('asdasd', 1));
