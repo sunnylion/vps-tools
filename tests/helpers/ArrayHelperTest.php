@@ -107,6 +107,16 @@
 			$this->assertEquals([ 1, 10, 20, 10, 6, 0, 10 ], ArrayHelper::flatten($array));
 		}
 
+		public function testKeysExist ()
+		{
+			$this->assertNull(ArrayHelper::keysExist(null, 12));
+			$this->assertNull(ArrayHelper::keysExist('adasdasd', 12));
+
+			$this->assertFalse(ArrayHelper::keysExist([ 1, 2, 3 ], 'a'));
+			$this->assertTrue(ArrayHelper::keysExist([ 1, 2, 3 ], 1));
+			$this->assertTrue(ArrayHelper::keysExist([ 1, 2, 3, 'b' => 9 ], [ 1, 'b', 2 ]));
+		}
+
 		public function testMergeColumns ()
 		{
 			$this->assertNull(ArrayHelper::mergeColumns('adsas'));

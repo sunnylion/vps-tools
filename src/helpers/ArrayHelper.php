@@ -151,6 +151,27 @@
 		}
 
 		/**
+		 * Checks if all keys exist in given array.
+		 * @param array $array
+		 * @param array $keys
+		 * @return bool|null
+		 */
+		public static function keysExist ($array, $keys)
+		{
+			if (!is_array($array))
+				return null;
+
+			if (!is_array($keys))
+				$keys = [ $keys ];
+
+			foreach ($keys as $key)
+				if (!array_key_exists($key, $array))
+					return false;
+
+			return true;
+		}
+
+		/**
 		 * Merges columns of the same length in multi-array.
 		 * @param  array $column1
 		 * @param  array $column2
