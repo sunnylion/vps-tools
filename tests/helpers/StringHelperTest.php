@@ -16,4 +16,14 @@
 			$this->assertEquals([ 'It/', ' is?', ' a', ' test with rtrim' ], StringHelper::explode("It/, is?, a , test with rtrim", ',', 'rtrim'));
 			$this->assertEquals([ 'It', ' is', ' a ', ' test with closure' ], StringHelper::explode("It/, is?, a , test with closure", ',', function ($value) { return trim($value, '/?'); }));
 		}
+
+		public function testRandom ()
+		{
+			$this->assertNull(StringHelper::random(-1));
+			$this->assertNull(StringHelper::random(null));
+
+			$this->assertRegExp('/[0-9a-z]{10}/', StringHelper::random());
+			$this->assertRegExp('/[0-9a-z]{15}/', StringHelper::random(15));
+			$this->assertRegExp('/[0-9a-zA-Z]{19}/', StringHelper::random(19, true));
+		}
 	}
