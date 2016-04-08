@@ -3,7 +3,7 @@
 	defined('YII_ENV') or define('YII_ENV', 'test');
 
 	require( __DIR__ . '/../vendor/autoload.php' );
-	require( __DIR__ . '/../vendor/yiisoft/yii2/Yii.php' );
+	require( __DIR__ . '/../src/framework/Yii.php' );
 
 	Yii::setAlias('@tests', __DIR__);
 	new \yii\console\Application(require_once __DIR__ . '/config/tests.php');
