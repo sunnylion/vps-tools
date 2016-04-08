@@ -1,18 +1,18 @@
 {
 	"name": "miptliot/vps-tools",
 	"description": "Tools and other stuff that are used in every project.",
-	"type": "git",
+	"type": "library",
 	"license": "MIT",
+	"homepage": "http://liot.mipt.ru",
 	"authors": [
 		{
 			"name": "Anna Manaenkova",
 			"email": "anna.manaenkova@phystech.edu"
 		}
 	],
-	"minimum-stability": "dev",
 	"require": {
-		"yiisoft/yii2": "~2.0.0",
-		"yiisoft/yii2-bootstrap": "~2.0.0",
+		"yiisoft/yii2": ">=2.0.7",
+		"yiisoft/yii2-bootstrap": ">=2.0.0",
 		"creocoder/yii2-nested-sets": "*"
 	},
 	"require-dev": {
@@ -22,6 +22,11 @@
 	"autoload": {
 		"psr-4": {
 			"vps\\": "src"
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0.x-dev"
 		}
 	}
 }
