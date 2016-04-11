@@ -3,7 +3,7 @@
 
 	use Yii;
 
-	class HtmlHelper extends \yii\helpers\BaseHtml
+	class Html extends \yii\helpers\BaseHtml
 	{
 		/**
 		 * Overwritten method. By default i18n is used.
@@ -103,5 +103,30 @@
 			}
 
 			return $output;
+		}
+
+		/**
+		 * Generates bootstrap list group with order displayed.
+		 * @param array $items   Array of elements with following structure:
+		 *                       * title - item title.
+		 *                       * order - Item order.
+		 *                       * id
+		 * @param array $options In addition to common options this could contain:
+		 *                       * orderClass - class for the span element that contains item order number.
+		 *                       * title - Title for the list group.
+		 * @return string
+		 */
+		public static function listGroupOrder ($items, $options = [ ])
+		{
+			$options[ 'class' ] = isset( $options[ 'class' ] ) ? $options[ 'class' ] . ' list-group' : 'list-group';
+			$orderClass = isset( $options[ 'orderClass' ] ) ? $options[ 'orderClass' ] : 'default';
+			$title = isset( $options[ 'title' ] ) ? $options[ 'title' ] : 'title';
+
+			$options[ 'item' ] = function ($item, $index) use ($orderClass, $title)
+			{
+				return self::tag('li', self::tag('span', $item[ 'order' ], [ 'class' => 'order order-' . $orderClass ]) . $item[ 'title' ], [ 'class' => 'list-group-item', 'data-id' => $item[ 'id' ], 'title' => $item[ $title ] ]);
+			};
+
+			return self::ul($items, $options);
 		}
 	}
