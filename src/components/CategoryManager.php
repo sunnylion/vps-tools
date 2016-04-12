@@ -37,7 +37,7 @@
 		 * @var string This is for imploding titles in title paths.
 		 */
 		protected $_titlePathDelimiter = ' : ';
-		
+
 		/**
 		 * Populates category tree with data loaded from database.
 		 * @inheritdoc
@@ -216,7 +216,7 @@
 		/**
 		 * Builds full title and GUID paths for all categories.
 		 */
-		private function buildPaths ()
+		protected function buildPaths ()
 		{
 			$titles = [ ];
 			$guids = [ ];
