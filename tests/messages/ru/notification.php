@@ -1,0 +1,7 @@
+<?php
+	return [
+		'Error test'           => 'Тест ошибки',
+		'Message test'         => 'Тест сообщения',
+		'Notification message' => 'Тест уведомления',
+		'Warning test'         => 'Тест предупреждения',
+	];
