@@ -14,30 +14,30 @@
 	class CategoryManager extends \yii\base\Object
 	{
 		/**
+		 * @var Category[] Category tree.
+		 */
+		protected $_data = [ ];
+
+		/**
 		 * @var string This is for imploding GUIDs in guid paths.
 		 */
 		protected $_guidPathDelimiter = ':';
 
 		/**
-		 * @var string This is for imploding titles in title paths.
-		 */
-		protected $_titlePathDelimiter = ' : ';
-
-		/**
-		 * @var Category[] Category tree.
-		 */
-		private $_data = [ ];
-
-		/**
 		 * @var string
 		 */
-		private $_modelClass = '\common\models\Category';
+		protected $_modelClass = '\common\models\Category';
 
 		/**
 		 * @var [[Category]] Root category.
 		 */
-		private $_root;
+		protected $_root;
 
+		/**
+		 * @var string This is for imploding titles in title paths.
+		 */
+		protected $_titlePathDelimiter = ' : ';
+		
 		/**
 		 * Populates category tree with data loaded from database.
 		 * @inheritdoc
