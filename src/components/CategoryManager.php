@@ -14,6 +14,16 @@
 	class CategoryManager extends \yii\base\Object
 	{
 		/**
+		 * @var string This is for imploding GUIDs in guid paths.
+		 */
+		protected $_guidPathDelimiter = ':';
+
+		/**
+		 * @var string This is for imploding titles in title paths.
+		 */
+		protected $_titlePathDelimiter = ' : ';
+
+		/**
 		 * @var Category[] Category tree.
 		 */
 		private $_data = [ ];
@@ -227,8 +237,8 @@
 				$titles[ $parent->id ][] = $parent->title;
 				$guids[ $parent->id ][] = $parent->guid;
 
-				$parent->titlePath = implode(' : ', $titles[ $parent->id ]);
-				$parent->guidPath = implode(':', $guids[ $parent->id ]);
+				$parent->titlePath = implode($this->_titlePathDelimiter, $titles[ $parent->id ]);
+				$parent->guidPath = implode($this->_guidPathDelimiter, $guids[ $parent->id ]);
 			}
 		}
 	}
