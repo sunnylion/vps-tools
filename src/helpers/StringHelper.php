@@ -53,12 +53,7 @@
 				if ($upper)
 					$characters .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-				$n = strlen($characters);
-				$string = '';
-				for ($i = 0; $i < $length; $i++)
-					$string .= $characters[ rand(0, $n - 1) ];
-
-				return $string;
+				return substr(str_shuffle(str_repeat($characters, $length)), 0, $length);
 			}
 
 			return null;
