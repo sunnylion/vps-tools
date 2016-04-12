@@ -22,6 +22,9 @@
 					],
 				],
 			],
+			'session'  => [
+				'class' => 'yii\web\Session'
+			],
 			'settings' => [
 				'class'      => '\vps\components\SettingManager',
 				'modelClass' => 'tests\models\Setting'
