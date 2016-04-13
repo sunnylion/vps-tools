@@ -114,27 +114,65 @@
 			self::init();
 		}
 
+		public function testListDirs ()
+		{
+			$this->assertNull(FileHelper::listItems('ashdjghajsdgj'));
+
+			$this->assertEquals([ 'dir_1', 'dir_2', 'dir_3', 'zdir' ], FileHelper::listDirs($this->datapath));
+			$this->assertEquals([
+				realpath($this->datapath . '/dir_1'),
+				realpath($this->datapath . '/dir_2'),
+				realpath($this->datapath . '/dir_3'),
+				realpath($this->datapath . '/zdir')
+			], FileHelper::listDirs($this->datapath, true));
+
+			$this->assertEquals([ ], FileHelper::listDirs($this->datapath . '/dir_3'));
+
+			$this->assertEquals([
+				realpath($this->datapath . '/dir_1/dir_1_2/dir_1_2_1'),
+				realpath($this->datapath . '/dir_1/dir_1_2/dir_1_2_2')
+			], FileHelper::listDirs($this->datapath . '/dir_1/dir_1_2', true));
+		}
+
+		public function testListFiles ()
+		{
+			$this->assertNull(FileHelper::listFiles('ashdjghajsdgj'));
+
+			$this->assertEquals([ 'file3.txt', 'file4.txt' ], FileHelper::listFiles($this->datapath));
+			$this->assertEquals([
+				realpath($this->datapath . '/file3.txt'),
+				realpath($this->datapath . '/file4.txt')
+			], FileHelper::listFiles($this->datapath, true));
+
+			$this->assertEquals([ 'file10.txt' ], FileHelper::listFiles($this->datapath . '/dir_3'));
+
+			$this->assertEquals([
+				realpath($this->datapath . '/dir_1/dir_1_2/file6.txt'),
+				realpath($this->datapath . '/dir_1/dir_1_2/file7.txt')
+			], FileHelper::listFiles($this->datapath . '/dir_1/dir_1_2', true));
+		}
+
 		public function testListItems ()
 		{
 			$this->assertNull(FileHelper::listItems('ashdjghajsdgj'));
 
 			$this->assertEquals([ 'dir_1', 'dir_2', 'dir_3', 'file3.txt', 'file4.txt', 'zdir' ], FileHelper::listItems($this->datapath));
 			$this->assertEquals([
-				$this->datapath . '/dir_1',
-				$this->datapath . '/dir_2',
-				$this->datapath . '/dir_3',
-				$this->datapath . '/file3.txt',
-				$this->datapath . '/file4.txt',
-				$this->datapath . '/zdir'
+				realpath($this->datapath . '/dir_1'),
+				realpath($this->datapath . '/dir_2'),
+				realpath($this->datapath . '/dir_3'),
+				realpath($this->datapath . '/file3.txt'),
+				realpath($this->datapath . '/file4.txt'),
+				realpath($this->datapath . '/zdir')
 			], FileHelper::listItems($this->datapath, true));
 
 			$this->assertEquals([ 'file10.txt' ], FileHelper::listItems($this->datapath . '/dir_3'));
 
 			$this->assertEquals([
-				$this->datapath . '/dir_1/dir_1_2/dir_1_2_1',
-				$this->datapath . '/dir_1/dir_1_2/dir_1_2_2',
-				$this->datapath . '/dir_1/dir_1_2/file6.txt',
-				$this->datapath . '/dir_1/dir_1_2/file7.txt'
+				realpath($this->datapath . '/dir_1/dir_1_2/dir_1_2_1'),
+				realpath($this->datapath . '/dir_1/dir_1_2/dir_1_2_2'),
+				realpath($this->datapath . '/dir_1/dir_1_2/file6.txt'),
+				realpath($this->datapath . '/dir_1/dir_1_2/file7.txt')
 			], FileHelper::listItems($this->datapath . '/dir_1/dir_1_2', true));
 		}
 
