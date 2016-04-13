@@ -57,6 +57,19 @@
 		}
 
 		/**
+		 * Adds option.
+		 * @param string $name
+		 * @param string $value
+		 * @return Curl
+		 */
+		public function addOption ($name, $value)
+		{
+			$this->_options[ $name ] = $value;
+
+			return $this;
+		}
+
+		/**
 		 * Adds param. All params will be appended to request URL.
 		 * @param string $name
 		 * @param string $value
