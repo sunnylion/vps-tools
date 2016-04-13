@@ -15,6 +15,23 @@
 		}
 
 		/**
+		 * Explodes string with multiple delimiters.
+		 * @param string   $string
+		 * @param string[] $delimiters
+		 * @return array|null
+		 */
+		public static function mexplode ($string, $delimiters = [ ',' ])
+		{
+			if (is_string($delimiters) or is_numeric($delimiters))
+				$delimiters = [ $delimiters ];
+
+			if (!is_array($delimiters))
+				return null;
+
+			return preg_split('/[' . implode('', $delimiters) . ']+/', $string, -1, PREG_SPLIT_NO_EMPTY);
+		}
+
+		/**
 		 * Gets the position of nth occurrence of character.
 		 * @param  string  $string String to be searched for character.
 		 * @param  string  $char
