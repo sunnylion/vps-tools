@@ -25,6 +25,8 @@
 			$this->assertEquals('00:00:01.800', TimeHelper::fromFrames(45));
 			$this->assertEquals('00:07:02.360', TimeHelper::fromFrames(10559));
 			$this->assertEquals('02:23:13.400', TimeHelper::fromFrames(214835));
+			$this->assertEquals('02:23:13', TimeHelper::fromFrames(214835, 'HH:MM:SS'));
+			$this->assertEquals('02:23:13:10', TimeHelper::fromFrames(214835, 221321));
 		}
 
 		public function testFromFramesToHuman ()
