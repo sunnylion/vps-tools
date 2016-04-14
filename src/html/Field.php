@@ -1,5 +1,5 @@
 <?php
-	namespace common\html;
+	namespace vps\html;
 
 	use Yii;
 	use vps\helpers\ArrayHelper;
