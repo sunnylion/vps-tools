@@ -2,7 +2,7 @@
 	namespace vps\html;
 
 	use Yii;
-	use \vps\helpers\HtmlHelper;
+	use \vps\helpers\Html;
 	use \yii\base\InvalidConfigException;
 
 	/**
@@ -14,7 +14,7 @@
 		/**
 		 * @inheritdoc
 		 */
-		public $fieldClass = '\common\html\Field';
+		public $fieldClass = '\vps\html\Field';
 
 		/**
 		 * Adds 'role' attribute.
@@ -63,7 +63,7 @@
 				throw new InvalidConfigException('Invalid layout type: ' . $this->layout);
 
 			if ($this->layout !== 'default')
-				HtmlHelper::addCssClass($this->options, 'form-' . $this->layout);
+				Html::addCssClass($this->options, 'form-' . $this->layout);
 
 			if ($this->name)
 				$this->options[ 'name' ] = $this->name;
