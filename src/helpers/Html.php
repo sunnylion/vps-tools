@@ -26,13 +26,38 @@
 		}
 
 		/**
+		 * Creates button checkbox or radio group.
+		 * @link http://getbootstrap.com/javascript/#buttons-checkbox-radio
+		 * @param string            $name     Name for the inputs.
+		 * @param string|array|null $selected Selected values.
+		 * @param array             $items    The data item used to generate the checkboxes. The array keys are the
+		 *                                    input values, while the array values are the corresponding labels.
+		 * @param string            $type     Input type - checkbox/radio.
+		 * @return string
+		 */
+		public static function buttonGroup ($name, $selected, $items, $type = 'checkbox')
+		{
+			if ($type == 'checkbox')
+				return self::checkboxList($name, $selected, $items, [ 'class' => 'btn-group', 'data-toggle' => 'buttons', 'item' => function ($index, $label, $name, $checked, $value)
+				{
+					return self::label(self::checkbox($name, $checked, [ 'autocomplete' => 'off', 'value' => $value ]) . ' ' . $label, null, [ 'class' => 'btn btn-default' . ( $checked ? ' active' : '' ) ]);
+				} ]);
+			else
+				return self::radioList($name, $selected, $items, [ 'class' => 'btn-group', 'data-toggle' => 'buttons', 'item' => function ($index, $label, $name, $checked, $value)
+				{
+					return self::label(self::radio($name, $checked, [ 'autocomplete' => 'off', 'value' => $value ]) . ' ' . $label, null, [ 'class' => 'btn btn-default' . ( $checked ? ' active' : '' ) ]);
+				} ]);
+		}
+
+		/**
 		 * Creates button with FontAwesome icon.
 		 * @param string $text    Button text.
 		 * @param string $fa      Icon name.
 		 * @param array  $options Additional options.
 		 * @return string
 		 */
-		public static function buttonFa ($text, $fa, $options = [ ])
+		public
+		static function buttonFa ($text, $fa, $options = [ ])
 		{
 			$icon = self::tag('i', '', [ 'class' => 'fa fa-' . $fa . ' margin' ]);
 
@@ -56,7 +81,8 @@
 		 * @param array  $preserve
 		 * @return string Compressed output.
 		 */
-		public static function compress ($input, $preserve = [ 'textarea', 'pre' ])
+		public
+		static function compress ($input, $preserve = [ 'textarea', 'pre' ])
 		{
 			$output = trim($input);
 
@@ -116,7 +142,8 @@
 		 *                       * title - Title for the list group.
 		 * @return string
 		 */
-		public static function listGroupOrder ($items, $options = [ ])
+		public
+		static function listGroupOrder ($items, $options = [ ])
 		{
 			$options[ 'class' ] = isset( $options[ 'class' ] ) ? $options[ 'class' ] . ' list-group' : 'list-group';
 			$orderClass = isset( $options[ 'orderClass' ] ) ? $options[ 'orderClass' ] : 'default';
