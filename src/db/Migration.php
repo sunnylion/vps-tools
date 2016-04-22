@@ -15,7 +15,7 @@
 		 */
 		public function createView ($name, Query $query, $replace = true)
 		{
-			$sql = 'CREATE :replace VIEW `:name`' . $query->createCommand()->getRawSql();
+			$sql = 'CREATE :replace VIEW `:name` AS ' . $query->createCommand()->getRawSql();
 			$this->db->createCommand($sql, [ ':replace' => $replace ? 'OR REPLACE' : '', ':name' => $name ])->execute();
 		}
 
