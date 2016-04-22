@@ -15,8 +15,13 @@
 		 */
 		public function createView ($name, Query $query, $replace = true)
 		{
+			echo "    > create table $name ...";
+			$time = microtime(true);
+
 			$sql = 'CREATE :replace VIEW `:name` AS ' . $query->createCommand()->getRawSql();
 			$this->db->createCommand($sql, [ ':replace' => $replace ? 'OR REPLACE' : '', ':name' => $name ])->execute();
+
+			echo ' done (time: ' . sprintf('%.3f', microtime(true) - $time) . "s)\n";
 		}
 
 		/**
@@ -26,7 +31,10 @@
 		 */
 		public function dropView ($name)
 		{
+			echo "    > drop view $name ...";
+			$time = microtime(true);
 			$this->db->createCommand('DROP VIEW IF EXISTS `:name`', [ ':name' => $name ]);
+			echo ' done (time: ' . sprintf('%.3f', microtime(true) - $time) . "s)\n";
 		}
 
 		/**
@@ -39,9 +47,14 @@
 		{
 			if (file_exists($path) and is_readable($path))
 			{
+				echo "    > loading queries from file $path ...";
+				$time = microtime(true);
+
 				$rows = file($path, FILE_SKIP_EMPTY_LINES);
 				foreach ($rows as $row)
 					$this->db->createCommand($row)->execute();
+
+				echo ' done (time: ' . sprintf('%.3f', microtime(true) - $time) . "s)\n";
 			}
 			else
 				throw new \Exception ('Cannot open file ' . $path . ' for reading.');
