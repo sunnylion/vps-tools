@@ -18,8 +18,8 @@
 			echo "    > create table $name ...";
 			$time = microtime(true);
 
-			$sql = 'CREATE :replace VIEW `:name` AS ' . $query->createCommand()->getRawSql();
-			$this->db->createCommand($sql, [ ':replace' => $replace ? 'OR REPLACE' : '', ':name' => $name ])->execute();
+			$sql = 'CREATE' . ( $replace ? ' OR REPLACE' : '' ) . ' VIEW ' . $this->db->quoteTableName($name) . ' AS ' . $query->createCommand()->getRawSql();
+			$this->db->createCommand($sql)->execute();
 
 			echo ' done (time: ' . sprintf('%.3f', microtime(true) - $time) . "s)\n";
 		}
@@ -33,7 +33,7 @@
 		{
 			echo "    > drop view $name ...";
 			$time = microtime(true);
-			$this->db->createCommand('DROP VIEW IF EXISTS `:name`', [ ':name' => $name ]);
+			$this->db->createCommand('DROP VIEW IF EXISTS ' . $this->db->quoteTableName($name));
 			echo ' done (time: ' . sprintf('%.3f', microtime(true) - $time) . "s)\n";
 		}
 
