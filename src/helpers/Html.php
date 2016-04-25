@@ -56,8 +56,7 @@
 		 * @param array  $options Additional options.
 		 * @return string
 		 */
-		public
-		static function buttonFa ($text, $fa, $options = [ ])
+		public static function buttonFa ($text, $fa, $options = [ ])
 		{
 			$icon = self::tag('i', '', [ 'class' => 'fa fa-' . $fa . ' margin' ]);
 
@@ -81,8 +80,7 @@
 		 * @param array  $preserve
 		 * @return string Compressed output.
 		 */
-		public
-		static function compress ($input, $preserve = [ 'textarea', 'pre' ])
+		public static function compress ($input, $preserve = [ 'textarea', 'pre' ])
 		{
 			$output = trim($input);
 
@@ -142,8 +140,7 @@
 		 *                       * title - Title for the list group.
 		 * @return string
 		 */
-		public
-		static function listGroupOrder ($items, $options = [ ])
+		public static function listGroupOrder ($items, $options = [ ])
 		{
 			$options[ 'class' ] = isset( $options[ 'class' ] ) ? $options[ 'class' ] . ' list-group' : 'list-group';
 			$orderClass = isset( $options[ 'orderClass' ] ) ? $options[ 'orderClass' ] : 'default';
@@ -155,5 +152,41 @@
 			};
 
 			return self::ul($items, $options);
+		}
+
+		/**
+		 * Generates table.
+		 * @param array $head
+		 * @param array $body
+		 * @param array $options
+		 * @return string
+		 */
+		public static function table ($head, $body, $options = [ ])
+		{
+			$table = self::beginTag('table', $options);
+
+			if (!empty( $head ) and is_array($head))
+			{
+				$table .= self::beginTag('thead');
+				$table .= self::beginTag('tr');
+				foreach ($head as $item)
+					$table .= self::tag('th', $item);
+				$table .= self::endTag('tr');
+				$table .= self::endTag('thead');
+			}
+
+			$table .= self::beginTag('tbody');
+			foreach ($body as $row)
+			{
+				$table .= self::beginTag('tr');
+				foreach ($row as $item)
+					$table .= self::tag('td', $item);
+				$table .= self::endTag('tr');
+			}
+			$table .= self::endTag('tbody');
+
+			$table .= self::endTag('table');
+
+			return $table;
 		}
 	}
