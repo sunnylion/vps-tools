@@ -243,4 +243,14 @@
 
 			return $this;
 		}
+
+		/**
+		 * Added translation for label title.
+		 * @inheritdoc
+		 */
+		protected function renderLabelParts ($label = null, $options = [ ])
+		{
+			$this->parts[ '{labelTitle}' ] = Yii::tr($label);
+			parent::renderLabelParts($label, $options);
+		}
 	}
