@@ -33,7 +33,7 @@
 		 * @inheritdoc
 		 */
 		public $fieldConfig = [
-			'template'             => '{label}{beginWrapper}{input}{hint}{error}{endWrapper}',
+			'template'             => '{beginLabel}{labelTitle}{endLabel}{beginWrapper}{input}{hint}{error}{endWrapper}',
 			'horizontalCssClasses' => [ 'label' => 'col-md-3', 'wrapper' => 'col-md-9', 'hint' => '', 'error' => 'error-block' ],
 			'errorOptions'         => [ 'encode' => false ],
 		];
