@@ -250,7 +250,8 @@
 		 */
 		protected function renderLabelParts ($label = null, $options = [ ])
 		{
-			$this->parts[ '{labelTitle}' ] = Yii::tr($label);
 			parent::renderLabelParts($label, $options);
+			if (!empty( $this->parts[ '{labelTitle}' ] ))
+				$this->parts[ '{labelTitle}' ] = Yii::tr($this->parts[ '{labelTitle}' ]);
 		}
 	}
