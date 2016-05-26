@@ -1,5 +1,5 @@
 <?php
-	namespace vps\db;
+	namespace vps\tools\db;
 
 	use yii\db\Query;
 

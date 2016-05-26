@@ -1,9 +1,9 @@
 <?php
-	namespace vps\net;
+	namespace vps\tools\net;
 
 	/**
 	 * Class Curl
-	 * @package       vps\net
+	 * @package       vps\tools\net
 	 * @property-read [[CurlResponse]] $response
 	 * @property-write string $returnTransfer
 	 */

@@ -1,8 +1,8 @@
 <?php
-	namespace vps\html;
+	namespace vps\tools\html;
 
 	use Yii;
-	use \vps\helpers\Html;
+	use \vps\tools\helpers\Html;
 	use \yii\base\InvalidConfigException;
 
 	/**
@@ -14,7 +14,7 @@
 		/**
 		 * @inheritdoc
 		 */
-		public $fieldClass = '\vps\html\Field';
+		public $fieldClass = '\vps\tools\html\Field';
 
 		/**
 		 * Adds 'role' attribute.

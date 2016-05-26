@@ -1,7 +1,7 @@
 <?php
 	namespace tests\helpers;
 
-	use vps\helpers\Html;
+	use vps\tools\helpers\Html;
 
 	class HtmlTest extends \PHPUnit_Framework_TestCase
 	{

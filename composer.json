@@ -21,7 +21,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"vps\\": "src"
+			"vps\\tools\\": "src"
 		}
 	},
 	"extra": {
