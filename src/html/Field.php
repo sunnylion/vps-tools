@@ -1,9 +1,9 @@
 <?php
-	namespace vps\html;
+	namespace vps\tools\html;
 
 	use Yii;
-	use vps\helpers\ArrayHelper;
-	use vps\helpers\Html;
+	use vps\tools\helpers\ArrayHelper;
+	use vps\tools\helpers\Html;
 	use yii\bootstrap\Collapse;
 
 	/**

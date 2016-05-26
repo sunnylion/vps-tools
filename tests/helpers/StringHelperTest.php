@@ -1,7 +1,7 @@
 <?php
 	namespace tests\helpers;
 
-	use vps\helpers\StringHelper;
+	use vps\tools\helpers\StringHelper;
 
 	class StringHelperTest extends \PHPUnit_Framework_TestCase
 	{

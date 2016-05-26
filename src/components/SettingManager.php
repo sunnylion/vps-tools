@@ -1,9 +1,9 @@
 <?php
-	namespace vps\components;
+	namespace vps\tools\components;
 
 	/**
 	 * Class SettingManager
-	 * @package vps\components
+	 * @package vps\tools\components
 	 * @property-read Setting[] $all
 	 * @property-write string   $modelClass
 	 */

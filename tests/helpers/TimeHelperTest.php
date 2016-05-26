@@ -2,7 +2,7 @@
 	namespace tests\helpers;
 
 	use Yii;
-	use vps\helpers\TimeHelper;
+	use vps\tools\helpers\TimeHelper;
 	use \yii\base\InvalidParamException;
 
 	class TimeHelperTest extends \PHPUnit_Framework_TestCase
