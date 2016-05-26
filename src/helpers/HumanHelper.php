@@ -108,7 +108,7 @@
 		 * @param string $string
 		 * @return int|null
 		 */
-		private static function toBytes ($string)
+		public static function toBytes ($string)
 		{
 			$value = null;
 
