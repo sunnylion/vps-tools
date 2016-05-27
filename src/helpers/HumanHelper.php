@@ -58,7 +58,7 @@
 		 * @return null|int Size in bytes.
 		 * @see size
 		 */
-		public function maxBytesUpload ()
+		public static function maxBytesUpload ()
 		{
 			$values = [
 				ini_get('post_max_size'),
