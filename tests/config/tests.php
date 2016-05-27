@@ -1,7 +1,7 @@
 <?php
 	return [
 		'id'         => 'vps-tools-tests',
-		'basePath'   => __DIR__ . '/..',
+		'basePath'   => realpath(__DIR__ . '/..'),
 		'language'   => 'ru',
 		'components' => [
 			'category' => [
