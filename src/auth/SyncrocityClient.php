@@ -1,5 +1,5 @@
 <?php
-	namespace app\auth;
+	namespace vps\tools\auth;
 
 	use Yii;
 	use yii\authclient\OAuth2;
