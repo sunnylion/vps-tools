@@ -45,7 +45,6 @@
 			$this->authUrl = $url . '/oauth/authorize';
 			$this->tokenUrl = $url . '/oauth/token';
 			$this->apiBaseUrl = $url . '/api';
-			$this->returnUrl = Yii::$app->request->hostInfo . '/' . Yii::$app->request->pathInfo;
 		}
 
 		/**
