@@ -1,5 +1,5 @@
 <?php
-	namespace common\net;
+	namespace vps\tools\net;
 
 	use Yii;
 	use vps\tools\helpers\StringHelper;
