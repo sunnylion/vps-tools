@@ -8,12 +8,13 @@
 	/**
 	 * This class manages resumable uploads provided by Flow.js library.
 	 *
-	 * @property-read string  $chunkPath     Full path to the current chunk file.
-	 * @property-read bool    $isComplete    Indicates whether file uploading is complete.
-	 * @property-read bool    $isNew         Indicates whether file uploading is new.
-	 * @property-read string  $savedFilename Name of the saved file.
-	 * @property-write string $targetDir     Target directory to save video file.
-	 * @property-write string $tmpDir        Temporary directory where chunks are saved.
+	 * @property-read string  $chunkPath           Full path to the current chunk file.
+	 * @property-read bool    $isComplete          Indicates whether file uploading is complete.
+	 * @property-read bool    $isNew               Indicates whether file uploading is new.
+	 * @property-read bool    $isUploading         Indicates whether chunk is being uploaded or tested.
+	 * @property-read string  $savedFilename       Name of the saved file.
+	 * @property-write string $targetDir           Target directory to save video file.
+	 * @property-write string $tmpDir              Temporary directory where chunks are saved.
 	 *
 	 * @see    https://github.com/flowjs/flow.js
 	 *
@@ -152,6 +153,15 @@
 		}
 
 		/**
+		 * Detects whether chunk is being tested or uploaded.
+		 * @return bool
+		 */
+		public function getIsUploading ()
+		{
+			return isset( $this->_file );
+		}
+
+		/**
 		 * Gets param by its name.
 		 * @param string $name Parameter name.
 		 * @return null|mixed Parameter if exists, null otherwise.
@@ -204,7 +214,7 @@
 		{
 			if (!empty( $this->_params ))
 			{
-				if ($this->_file)
+				if ($this->getIsUploading())
 					$this->uploadChunk();
 				else
 					$this->testChunk();
@@ -229,7 +239,6 @@
 				if (Yii::$app->settings->get('upload_concat') == 'cat')
 				{
 					fclose($file);
-					$files = [ ];
 					setlocale(LC_ALL, 'ru_RU.UTF-8');
 					for ($i = 1; $i <= $this->_params[ 'totalChunks' ]; $i++)
 						shell_exec('cat ' . escapeshellarg($this->getChunkPath($i)) . ' >> ' . escapeshellarg($this->_targetDir . '/' . $this->_savedFilename));
