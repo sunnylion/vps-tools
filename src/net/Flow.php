@@ -257,19 +257,9 @@
 		}
 
 		/**
-		 * Checks if given chunk is uploaded.
-		 * @param null|integer $n Chunk number.
-		 * @return bool
-		 */
-		private function chunkIsUploaded ($n = null)
-		{
-			return file_exists($this->getChunkPath($n));
-		}
-
-		/**
 		 * Sets response status based on chunk uploaded status.
 		 */
-		private function testChunk ()
+		public function testChunk ()
 		{
 			if ($this->chunkIsUploaded())
 				Yii::$app->response->setStatusCode(200);
@@ -281,10 +271,20 @@
 		 * Uploads current chunk.
 		 * @throws \yii\base\ErrorException
 		 */
-		private function uploadChunk ()
+		public function uploadChunk ()
 		{
 			move_uploaded_file($this->_file[ 'tmp_name' ], $this->chunkPath);
 
 			Yii::$app->response->setStatusCode(200);
+		}
+
+		/**
+		 * Checks if given chunk is uploaded.
+		 * @param null|integer $n Chunk number.
+		 * @return bool
+		 */
+		private function chunkIsUploaded ($n = null)
+		{
+			return file_exists($this->getChunkPath($n));
 		}
 	}
