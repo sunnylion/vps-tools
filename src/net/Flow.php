@@ -10,6 +10,7 @@
 	 *
 	 * @property-read string  $chunkPath     Full path to the current chunk file.
 	 * @property-read bool    $isComplete    Indicates whether file uploading is complete.
+	 * @property-read bool    $isNew         Indicates whether file uploading is new.
 	 * @property-read string  $savedFilename Name of the saved file.
 	 * @property-write string $targetDir     Target directory to save video file.
 	 * @property-write string $tmpDir        Temporary directory where chunks are saved.
@@ -24,26 +25,37 @@
 		 * @var string Pre-name for request paramters.
 		 */
 		private $_basename = 'flow';
+
 		/**
 		 * @var array File info get from $_FILES array.
 		 */
 		private $_file;
+
 		/**
 		 * @var bool Whether uploading is complete.
 		 */
 		private $_isComplete = false;
+
+		/**
+		 * @var bool Whether uploading is new.
+		 */
+		private $_isNew = true;
+
 		/**
 		 * @var array Parameters gathered from request.
 		 */
 		private $_params;
+
 		/**
 		 * @var string Name of the saved file (after uploading is complete).
 		 */
 		private $_savedFilename;
+
 		/**
 		 * @var string Target directory to save video file.
 		 */
 		private $_targetDir;
+
 		/**
 		 * @var string Temporary directory where chuncks are saved.
 		 */
@@ -111,6 +123,30 @@
 			}
 
 			$this->_isComplete = true;
+
+			return true;
+		}
+
+		/**
+		 * Check whether file uploading is new.
+		 * @return bool
+		 */
+		public function getIsNew ()
+		{
+			if ($this->_isNew == false)
+				return false;
+
+			for ($i = 1; $i <= $this->_params[ 'totalChunks' ]; $i++)
+			{
+				if ($this->chunkIsUploaded($i))
+				{
+					$this->_isNew = false;
+
+					return false;
+				}
+			}
+
+			$this->_isNew = true;
 
 			return true;
 		}
