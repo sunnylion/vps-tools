@@ -170,16 +170,7 @@
 				$table .= self::beginTag('thead');
 				$table .= self::beginTag('tr');
 				foreach ($head as $item)
-				{
-					$options = [ ];
-					if (isset( $item[ 'cellOptions' ] ))
-					{
-						$options = $item[ 'cellOptions' ];
-						unset( $item[ 'cellOptions' ] );
-					}
-
-					$table .= self::tag('th', $item, $options);
-				}
+					$table .= self::tag('th', $item);
 				$table .= self::endTag('tr');
 				$table .= self::endTag('thead');
 			}
@@ -189,16 +180,7 @@
 			{
 				$table .= self::beginTag('tr');
 				foreach ($row as $item)
-				{
-					$options = [ ];
-					if (isset( $item[ 'cellOptions' ] ))
-					{
-						$options = $item[ 'cellOptions' ];
-						unset( $item[ 'cellOptions' ] );
-					}
-					
-					$table .= self::tag('td', $item, $options);
-				}
+					$table .= self::tag('td', $item);
 				$table .= self::endTag('tr');
 			}
 			$table .= self::endTag('tbody');
