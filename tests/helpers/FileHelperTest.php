@@ -1,7 +1,7 @@
 <?php
 	namespace tests\helpers;
 
-	use vps\helpers\FileHelper;
+	use vps\tools\helpers\FileHelper;
 
 	class FileHelperTest extends \PHPUnit_Framework_TestCase
 	{

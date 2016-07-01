@@ -13,6 +13,7 @@
 	"require": {
 		"yiisoft/yii2": ">=2.0.7",
 		"yiisoft/yii2-bootstrap": ">=2.0.0",
+		"yiisoft/yii2-authclient": ">=2.0.0",
 		"creocoder/yii2-nested-sets": "*"
 	},
 	"require-dev": {
@@ -21,7 +22,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"vps\\": "src"
+			"vps\\tools\\": "src"
 		}
 	},
 	"extra": {

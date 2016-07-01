@@ -1,9 +1,9 @@
 <?php
-	namespace vps\html;
+	namespace vps\tools\html;
 
 	use Yii;
-	use vps\helpers\ArrayHelper;
-	use vps\helpers\Html;
+	use vps\tools\helpers\ArrayHelper;
+	use vps\tools\helpers\Html;
 	use yii\bootstrap\Collapse;
 
 	/**
@@ -250,7 +250,8 @@
 		 */
 		protected function renderLabelParts ($label = null, $options = [ ])
 		{
-			$this->parts[ '{labelTitle}' ] = Yii::tr($label);
 			parent::renderLabelParts($label, $options);
+			if (!empty( $this->parts[ '{labelTitle}' ] ))
+				$this->parts[ '{labelTitle}' ] = Yii::tr($this->parts[ '{labelTitle}' ]);
 		}
 	}
