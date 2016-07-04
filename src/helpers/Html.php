@@ -130,6 +130,21 @@
 		}
 
 		/**
+		 * Generates Font-Awesome icon.
+		 * @param string $name Font-Awesome icon name. Will be appended after 'fa-' prefix.
+		 * @param array  $options
+		 * @return string
+		 */
+		public static function fa ($name, $options = [ ])
+		{
+			if (!isset( $options[ 'class' ] ))
+				$options[ 'class' ] = '';
+			$options[ 'class' ] = trim($options[ 'class' ] . ' fa fa-' . $name);
+
+			return self::tag('i', '', $options);
+		}
+
+		/**
 		 * Generates bootstrap list group with order displayed.
 		 * @param array $items   Array of elements with following structure:
 		 *                       * title - item title.
