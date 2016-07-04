@@ -137,13 +137,16 @@
 				return;
 
 			$path = Yii::$app->controller->id . '/' . Yii::$app->controller->action->id;
-			foreach (Yii::$app->menu as $menu)
+			if (Yii::$app->has('menu'))
 			{
-				if ($menu->path === $path)
+				foreach (Yii::$app->menu as $menu)
 				{
-					$this->data('title', $menu->name);
+					if ($menu->path === $path)
+					{
+						$this->data('title', $menu->name);
 
-					return;
+						return;
+					}
 				}
 			}
 
