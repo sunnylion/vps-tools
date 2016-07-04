@@ -1,9 +1,9 @@
 <?php
-	namespace vps\net;
+	namespace vps\tools\net;
 
 	/**
 	 * Class Curl
-	 * @package       vps\net
+	 * @package       vps\tools\net
 	 * @property-read [[CurlResponse]] $response
 	 * @property-write string $returnTransfer
 	 */
@@ -47,20 +47,39 @@
 		/**
 		 * Adds header.
 		 * @param string $header
+		 * @return Curl
 		 */
 		public function addHeader ($header)
 		{
 			$this->_headers[] = $header;
+
+			return $this;
+		}
+
+		/**
+		 * Adds option.
+		 * @param string $name
+		 * @param string $value
+		 * @return Curl
+		 */
+		public function addOption ($name, $value)
+		{
+			$this->_options[ $name ] = $value;
+
+			return $this;
 		}
 
 		/**
 		 * Adds param. All params will be appended to request URL.
 		 * @param string $name
 		 * @param string $value
+		 * @return Curl
 		 */
 		public function addParam ($name, $value)
 		{
 			$this->_params[ $name ] = $value;
+
+			return $this;
 		}
 
 		/**

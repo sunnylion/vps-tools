@@ -1,7 +1,7 @@
 <?php
 	namespace tests\helpers;
 
-	use vps\helpers\Html;
+	use vps\tools\helpers\Html;
 
 	class HtmlTest extends \PHPUnit_Framework_TestCase
 	{
@@ -29,5 +29,13 @@
 			$this->assertEquals("<textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea><div></div>dcl sskd", Html::compress("<textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea>     <div>   </div>dcl sskd"));
 			$this->assertEquals("<textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea><textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea><div></div>dcl sskd", Html::compress("<textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea>   <textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea>  <div>   </div>dcl sskd"));
 			$this->assertEquals("<textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea><textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea><div></div>dcl sskd<pre>\n\t  a sd asd as d asd  sadas sd</pre>", Html::compress("<textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea>   <textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea>  <div>   </div>dcl sskd\n\t    <pre>\n\t  a sd asd as d asd  sadas sd</pre>   "));
+		}
+
+		public function testTable ()
+		{
+			$this->assertEquals('<table><tbody></tbody></table>', Html::table([ ], [ ]));
+			$this->assertEquals('<table class="table"><tbody></tbody></table>', Html::table([ ], [ ], [ 'class' => 'table' ]));
+			$this->assertEquals('<table class="table"><thead><tr><th>1</th><th>2</th><th>3</th></tr></thead><tbody></tbody></table>', Html::table([ 1, 2, 3 ], [ ], [ 'class' => 'table' ]));
+			$this->assertEquals('<table class="table"><thead><tr><th>1</th><th>2</th><th>3</th></tr></thead><tbody><tr><td>2</td><td>3</td><td>4</td></tr><tr><td>3</td><td>4</td><td>5</td></tr></tbody></table>', Html::table([ 1, 2, 3 ], [ [ 2, 3, 4 ], [ 3, 4, 5 ] ], [ 'class' => 'table' ]));
 		}
 	}

@@ -1,5 +1,5 @@
 <?php
-	namespace vps\helpers;
+	namespace vps\tools\helpers;
 
 	use Yii;
 
@@ -37,7 +37,7 @@
 		 * @param  integer|string $frames Number of frames.
 		 * @return string Time in format HH:MM:SS.MSS.
 		 */
-		public static function fromFrames ($frames)
+		public static function fromFrames ($frames, $format = 'HH:MM:SS.MSS')
 		{
 			if (is_numeric($frames))
 			{
@@ -47,7 +47,12 @@
 				$f = $frames - $h * 3600 * self::$fps - $m * 60 * self::$fps - $s * self::$fps;
 				$ms = $f * 1000 / self::$fps;
 
-				return str_pad($h, 2, '0', STR_PAD_LEFT) . ':' . str_pad($m, 2, '0', STR_PAD_LEFT) . ':' . str_pad($s, 2, '0', STR_PAD_LEFT) . '.' . str_pad($ms, 3, '0', STR_PAD_LEFT);
+				if ($format == 'HH:MM:SS.MSS')
+					return str_pad($h, 2, '0', STR_PAD_LEFT) . ':' . str_pad($m, 2, '0', STR_PAD_LEFT) . ':' . str_pad($s, 2, '0', STR_PAD_LEFT) . '.' . str_pad($ms, 3, '0', STR_PAD_LEFT);
+				elseif ($format == 'HH:MM:SS')
+					return str_pad($h, 2, '0', STR_PAD_LEFT) . ':' . str_pad($m, 2, '0', STR_PAD_LEFT) . ':' . str_pad($s, 2, '0', STR_PAD_LEFT);
+				else
+					return str_pad($h, 2, '0', STR_PAD_LEFT) . ':' . str_pad($m, 2, '0', STR_PAD_LEFT) . ':' . str_pad($s, 2, '0', STR_PAD_LEFT) . ':' . str_pad($f, 2, '0', STR_PAD_LEFT);
 			}
 
 			return null;
@@ -58,7 +63,8 @@
 		 * @param  integer|string $frames Number of frames.
 		 * @return string Time in format (HH:)MM:SS.
 		 */
-		public static function fromFramesToHuman ($frames)
+		public
+		static function fromFramesToHuman ($frames)
 		{
 			if (is_numeric($frames))
 			{
@@ -80,7 +86,8 @@
 		 * @param  int $frames Number of frames
 		 * @return int Number of milliseconds.
 		 */
-		public static function fromFramesToMs ($frames)
+		public
+		static function fromFramesToMs ($frames)
 		{
 			if (is_numeric($frames))
 				return $frames * 1000 / self::$fps;
@@ -92,7 +99,8 @@
 		 * Return current date and time formatted via [[$dtFormat]].
 		 * @return string The formatted current date and time.
 		 */
-		public static function now ()
+		public
+		static function now ()
 		{
 			return date(self::$dtFormat);
 		}
@@ -102,7 +110,8 @@
 		 * @param string $time Input time in format HH:MM:SS, HH:MM:SS.FF or HH:MM:SS.MSS.
 		 * @return null|integer NUll in case of wrong format input or frames otherwise.
 		 */
-		public static function toFrames ($time)
+		public
+		static function toFrames ($time)
 		{
 			// 06:23:16.213
 			preg_match('/(\d{2}):(\d{2}):(\d{2})[\.:](\d{3})/', $time, $match);
@@ -127,7 +136,8 @@
 		 * @param string $time Input time in format HH:MM:SS, HH:MM:SS.FF or HH:MM:SS.MSS.
 		 * @return null|integer NUll in case of wrong format input or milliseconds otherwise.
 		 */
-		public static function toMs ($time)
+		public
+		static function toMs ($time)
 		{
 			// 06:23:16.213
 			preg_match('/(\d{2}):(\d{2}):(\d{2})[\.:](\d{3})/', $time, $match);
@@ -152,7 +162,8 @@
 		 * @param string $time Input time in format HH:MM:SS, HH:MM:SS.FF or HH:MM:SS.MSS.
 		 * @return null|integer NUll in case of wrong format input or seconds otherwise.
 		 */
-		public static function toSeconds ($time)
+		public
+		static function toSeconds ($time)
 		{
 			// 06:23:16.213
 			preg_match('/(\d{2}):(\d{2}):(\d{2})[\.:](\d{3})/', $time, $match);

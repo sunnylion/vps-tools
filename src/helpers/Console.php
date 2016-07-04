@@ -1,5 +1,5 @@
 <?php
-	namespace vps\helpers;
+	namespace vps\tools\helpers;
 
 	class Console extends \yii\helpers\BaseConsole
 	{

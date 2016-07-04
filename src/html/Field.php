@@ -1,9 +1,9 @@
 <?php
-	namespace common\html;
+	namespace vps\tools\html;
 
 	use Yii;
-	use vps\helpers\ArrayHelper;
-	use vps\helpers\Html;
+	use vps\tools\helpers\ArrayHelper;
+	use vps\tools\helpers\Html;
 	use yii\bootstrap\Collapse;
 
 	/**
@@ -242,5 +242,16 @@
 			$this->parts[ '{input}' ] = Html::textInput(Html::getInputName($model, $attribute), $value, $options);
 
 			return $this;
+		}
+
+		/**
+		 * Added translation for label title.
+		 * @inheritdoc
+		 */
+		protected function renderLabelParts ($label = null, $options = [ ])
+		{
+			parent::renderLabelParts($label, $options);
+			if (!empty( $this->parts[ '{labelTitle}' ] ))
+				$this->parts[ '{labelTitle}' ] = Yii::tr($this->parts[ '{labelTitle}' ]);
 		}
 	}
