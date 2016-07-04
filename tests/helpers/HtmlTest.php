@@ -31,6 +31,13 @@
 			$this->assertEquals("<textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea><textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea><div></div>dcl sskd<pre>\n\t  a sd asd as d asd  sadas sd</pre>", Html::compress("<textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea>   <textarea href='#test'>waia eisudi    lsaudkj\nsadl a </textarea>  <div>   </div>dcl sskd\n\t    <pre>\n\t  a sd asd as d asd  sadas sd</pre>   "));
 		}
 
+		public function testFa ()
+		{
+			$this->assertEquals('<i class="fa fa-icon"></i>', Html::fa('icon'));
+			$this->assertEquals('<i class="class123 fa fa-icon"></i>', Html::fa('icon', [ 'class' => 'class123' ]));
+			$this->assertEquals('<i class="fa fa-icon" data-test="value"></i>', Html::fa('icon', [ 'data-test' => 'value' ]));
+		}
+
 		public function testTable ()
 		{
 			$this->assertEquals('<table><tbody></tbody></table>', Html::table([ ], [ ]));
