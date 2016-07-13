@@ -118,6 +118,12 @@
 			Yii::$app->notification->message($message, $isRaw);
 		}
 
+		public function redirect ($url, $statusCode = 302)
+		{
+			parent::redirect($url, $statusCode);
+			Yii::$app->end();
+		}
+
 		/**
 		 * Add user warning.
 		 * @param  string  $message Message text.
