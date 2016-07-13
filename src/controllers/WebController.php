@@ -118,6 +118,10 @@
 			Yii::$app->notification->message($message, $isRaw);
 		}
 
+		/**
+		 * Redirects and ends app. That prevents from sending additional headers.
+		 * @inheritdoc
+		 */
 		public function redirect ($url, $statusCode = 302)
 		{
 			parent::redirect($url, $statusCode);
