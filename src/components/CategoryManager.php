@@ -1,5 +1,5 @@
 <?php
-	namespace vps\components;
+	namespace vps\tools\components;
 
 	use Yii;
 
@@ -16,17 +16,27 @@
 		/**
 		 * @var Category[] Category tree.
 		 */
-		private $_data = [ ];
+		protected $_data = [ ];
+
+		/**
+		 * @var string This is for imploding GUIDs in guid paths.
+		 */
+		protected $_guidPathDelimiter = ':';
 
 		/**
 		 * @var string
 		 */
-		private $_modelClass = '\common\models\Category';
+		protected $_modelClass = '\common\models\Category';
 
 		/**
 		 * @var [[Category]] Root category.
 		 */
-		private $_root;
+		protected $_root;
+
+		/**
+		 * @var string This is for imploding titles in title paths.
+		 */
+		protected $_titlePathDelimiter = ' : ';
 
 		/**
 		 * Populates category tree with data loaded from database.
@@ -206,7 +216,7 @@
 		/**
 		 * Builds full title and GUID paths for all categories.
 		 */
-		private function buildPaths ()
+		protected function buildPaths ()
 		{
 			$titles = [ ];
 			$guids = [ ];
@@ -227,8 +237,8 @@
 				$titles[ $parent->id ][] = $parent->title;
 				$guids[ $parent->id ][] = $parent->guid;
 
-				$parent->titlePath = implode(' : ', $titles[ $parent->id ]);
-				$parent->guidPath = implode(':', $guids[ $parent->id ]);
+				$parent->titlePath = implode($this->_titlePathDelimiter, $titles[ $parent->id ]);
+				$parent->guidPath = implode($this->_guidPathDelimiter, $guids[ $parent->id ]);
 			}
 		}
 	}

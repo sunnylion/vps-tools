@@ -1,7 +1,7 @@
 <?php
 	namespace tests\helpers;
 
-	use vps\helpers\HumanHelper;
+	use vps\tools\helpers\HumanHelper;
 
 	class HumanHelperTest extends \PHPUnit_Framework_TestCase
 	{

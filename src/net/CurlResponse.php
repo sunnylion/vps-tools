@@ -1,5 +1,5 @@
 <?php
-	namespace vps\net;
+	namespace vps\tools\net;
 
 	class CurlResponse extends \yii\base\Object
 	{

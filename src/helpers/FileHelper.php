@@ -1,5 +1,5 @@
 <?php
-	namespace vps\helpers;
+	namespace vps\tools\helpers;
 
 	use Yii;
 
@@ -94,6 +94,54 @@
 		}
 
 		/**
+		 * Gets directories list in given directory.
+		 * @param  string  $path     The directory under which the items will be looked for.
+		 * @param  boolean $absolute Whether return path to items should be absolute.
+		 * @return array|null List of paths to the found items.
+		 */
+		public static function listDirs ($path, $absolute = false)
+		{
+			if (is_dir($path) and is_readable($path))
+			{
+				$data = [ ];
+				$it = new \FilesystemIterator($path);
+				foreach ($it as $item)
+				{
+					if ($item->isDir())
+						$data[] = $absolute ? $item->getRealPath() : $item->getFilename();
+				}
+
+				return $data;
+			}
+
+			return null;
+		}
+
+		/**
+		 * Gets files list in given directory.
+		 * @param  string  $path     The directory under which the items will be looked for.
+		 * @param  boolean $absolute Whether return path to items should be absolute.
+		 * @return array|null List of paths to the found items.
+		 */
+		public static function listFiles ($path, $absolute = false)
+		{
+			if (is_dir($path) and is_readable($path))
+			{
+				$data = [ ];
+				$it = new \FilesystemIterator($path);
+				foreach ($it as $item)
+				{
+					if ($item->isFile())
+						$data[] = $absolute ? $item->getRealPath() : $item->getFilename();
+				}
+
+				return $data;
+			}
+
+			return null;
+		}
+
+		/**
 		 * Gets files and directories list in given directory.
 		 * @param  string  $path     The directory under which the items will be looked for.
 		 * @param  boolean $absolute Whether return path to items should be absolute.
@@ -101,15 +149,13 @@
 		 */
 		public static function listItems ($path, $absolute = false)
 		{
-			if (is_dir($path) and ( $dir = opendir($path) ))
+			if (is_dir($path) and is_readable($path))
 			{
-				$prefix = $absolute ? $path . '/' : '';
 				$data = [ ];
-				while ($f = readdir($dir))
-				{
-					if ($f != '.' and $f != '..')
-						$data[] = $prefix . $f;
-				}
+
+				$it = new \FilesystemIterator($path);
+				foreach ($it as $item)
+					$data[] = $absolute ? $item->getRealPath() : $item->getFilename();
 
 				return $data;
 			}
@@ -125,19 +171,17 @@
 		 */
 		public static function listItemsByDate ($path, $order = SORT_DESC)
 		{
-			if (is_dir($path) and ( $dir = opendir($path) ))
+			if (is_dir($path) and is_readable($path))
 			{
 				$data = [ ];
 				$time = [ ];
-				while ($f = readdir($dir))
+
+				$it = new \FilesystemIterator($path);
+				foreach ($it as $item)
 				{
-					if ($f != '.' and $f != '..')
-					{
-						$time[] = filemtime($path . '/' . $f);
-						$data[] = $f;
-					}
+					$data[] = $item->getFilename();
+					$time[] = $item->getMTime();
 				}
-				closedir($dir);
 
 				array_multisort($time, $order, $data);
 
