@@ -1,10 +1,18 @@
 <?php
 	namespace vps\tools\helpers;
-
-	use Yii;
-
+	
 	class StringHelper extends \yii\helpers\BaseStringHelper
 	{
+		/**
+		 * Removes all characters from string except letters, digits, underscore, hyphen and whitespace characters.
+		 * @param string $str string
+		 * @return string converted string
+		 */
+		public static function clear ($str)
+		{
+			return preg_replace('/[^\s\d\w\-]/u', '', $str);
+		}
+
 		/**
 		 * Overrides parent method with $skipEmpty default value set to true.
 		 * @inheritdoc
