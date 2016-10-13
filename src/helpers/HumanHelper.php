@@ -124,6 +124,7 @@
 		public static function toBytes ($string)
 		{
 			$value = null;
+			$string = strtoupper($string);
 
 			preg_match('/(\d+)\s?([KMGT]?)/', $string, $match);
 
