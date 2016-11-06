@@ -16,8 +16,9 @@
 		private $_data;
 
 		/**
-		 * Initialization method for checking if there are some notification stored in session.
-		 * If so the list of notifications is populated and the list of notifications stored in session is cleared.
+		 * Initialization method for checking if there are some notification
+		 * stored in session. If so the list of notifications is populated and
+		 * the list of notifications stored in session is cleared.
 		 * @return void
 		 */
 		public function init ()
@@ -29,7 +30,7 @@
 				foreach ($notification as $type => $data)
 					foreach ($data as $message)
 						$this->_data[] = new Notification($message, $type, true);
-				$session->set('notification', [ ]);
+				$session->set('notification', []);
 			}
 			parent::init();
 		}
@@ -44,9 +45,37 @@
 		}
 
 		/**
+		 * Gets all errors.
+		 * @return array
+		 */
+		public function getErrors ()
+		{
+			return $this->getNotifications(Notification::ERROR);
+		}
+
+		/**
+		 * Gets all messages.
+		 * @return array
+		 */
+		public function getMessages ()
+		{
+			return $this->getNotifications(Notification::MESSAGE);
+		}
+
+		/**
+		 * Gets all warnings.
+		 * @return array
+		 */
+		public function getWarnings ()
+		{
+			return $this->getNotifications(Notification::WARNING);
+		}
+
+		/**
 		 * Adds notification of type 'error' to list.
 		 * @param    string  $message Message.
-		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
+		 * @param    boolean $isRaw   Whether given message is raw text or
+		 *                            should be translated.
 		 * @return    void
 		 * @see    add()
 		 */
@@ -58,7 +87,8 @@
 		/**
 		 * Saves notification of type 'error' type to session.
 		 * @param    string  $message Message.
-		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
+		 * @param    boolean $isRaw   Whether given message is raw text or
+		 *                            should be translated.
 		 * @return    void
 		 * @see    toSession()
 		 */
@@ -70,7 +100,8 @@
 		/**
 		 * Adds notification of type 'message' to list.
 		 * @param    string  $message Message.
-		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
+		 * @param    boolean $isRaw   Whether given message is raw text or
+		 *                            should be translated.
 		 * @return    void
 		 * @see    add()
 		 */
@@ -82,7 +113,8 @@
 		/**
 		 * Saves notification of type 'message' type to session.
 		 * @param    string  $message Message.
-		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
+		 * @param    boolean $isRaw   Whether given message is raw text or
+		 *                            should be translated.
 		 * @return    void
 		 * @see    toSession()
 		 */
@@ -94,7 +126,8 @@
 		/**
 		 * Adds notification of type 'warning' to list.
 		 * @param    string  $message Message.
-		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
+		 * @param    boolean $isRaw   Whether given message is raw text or
+		 *                            should be translated.
 		 * @return    void
 		 * @see    add()
 		 */
@@ -106,7 +139,8 @@
 		/**
 		 * Saves notification of type 'warning' type to session.
 		 * @param  string  $message Message.
-		 * @param  boolean $isRaw   Whether given message is raw text or should be translated.
+		 * @param  boolean $isRaw   Whether given message is raw text or should
+		 *                          be translated.
 		 * @return void
 		 * @see    toSession()
 		 */
@@ -119,7 +153,8 @@
 		 * Adds notification to list.
 		 * @param    string  $message Message.
 		 * @param    integer $type    Message type.
-		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
+		 * @param    boolean $isRaw   Whether given message is raw text or
+		 *                            should be translated.
 		 * @return    void
 		 * @see    error()
 		 * @see    message()
@@ -131,10 +166,29 @@
 		}
 
 		/**
+		 * Finds all notifications of given type.
+		 * @param int $type
+		 * @return array
+		 */
+		private function getNotifications ($type)
+		{
+			$data = [];
+			/** @var Notification $notification */
+			foreach ($this->_data as $notification)
+			{
+				if ($notification->type == $type)
+					$data[] = $notification;
+			}
+
+			return $data;
+		}
+
+		/**
 		 * Saves notification to session.
 		 * @param    string  $message Message.
 		 * @param    integer $type    Message type.
-		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
+		 * @param    boolean $isRaw   Whether given message is raw text or
+		 *                            should be translated.
 		 * @return    void
 		 * @see    errorToSession()
 		 * @see    messageToSession()
@@ -145,7 +199,7 @@
 			$session = Yii::$app->session;
 			$ntf = new Notification($message, $type, $isRaw);
 
-			$notification = $session->has('notification') ? $session->get('notification') : [ ];
+			$notification = $session->has('notification') ? $session->get('notification') : [];
 			$notification[ $type ][] = $ntf->message;
 
 			$session->set('notification', $notification);
