@@ -16,8 +16,7 @@
 						'basePath'       => '@tests/messages',
 						'sourceLanguage' => 'en',
 						'fileMap'        => [
-							'app'              => 'app.php',
-							'app/notification' => 'notification.php'
+							'app'              => 'app.php'
 						],
 					],
 				],
