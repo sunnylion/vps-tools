@@ -1,7 +1,7 @@
 <?php
-	namespace vps\helpers;
+	namespace vps\tools\helpers;
 
-	class UrlHelper extends \yii\helpers\Url
+	class Url extends \yii\helpers\Url
 	{
 		/**
 		 * Immediate redirect to given URL.

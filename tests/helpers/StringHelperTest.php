@@ -1,10 +1,17 @@
 <?php
 	namespace tests\helpers;
 
-	use vps\helpers\StringHelper;
+	use vps\tools\helpers\StringHelper;
 
 	class StringHelperTest extends \PHPUnit_Framework_TestCase
 	{
+		public function testClear ()
+		{
+			$this->assertEquals('123', StringHelper::clear("123*(&(*"));
+			$this->assertEquals('', StringHelper::clear("*(&(*"));
+			$this->assertEquals('test   asd', StringHelper::clear("{}test  (* asd"));
+		}
+
 		public function testExplode ()
 		{
 			$this->assertEquals([ 'It', 'is', 'a first', 'test' ], StringHelper::explode("It, is, a first, test"));

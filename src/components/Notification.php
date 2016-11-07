@@ -1,5 +1,5 @@
 <?php
-	namespace vps\components;
+	namespace vps\tools\components;
 
 	use Yii;
 
@@ -15,10 +15,10 @@
 		const MESSAGE = 2;
 
 		/**
-		 * Category path for translation.
+		 * Category for translation.
 		 * @var string
 		 */
-		private $_category = 'app/notification';
+		private $_category = 'app';
 
 		/**
 		 * Message text.
@@ -36,13 +36,16 @@
 		public function getMessage () { return $this->_message; }
 
 		public function getType () { return $this->_type; }
+
+		public function setCategory ($category) { $this->_category = $category; }
 		// end Getters and setters.
 
 		/**
 		 * Creating new notification.
 		 * @param string  $message Message.
 		 * @param integer $type    Message type.
-		 * @param boolean $isRaw   Whether given message is raw text or should be translated.
+		 * @param boolean $isRaw   Whether given message is raw text or should
+		 *                         be translated.
 		 */
 		public function __construct ($message, $type = self::ERROR, $isRaw = false)
 		{

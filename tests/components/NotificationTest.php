@@ -2,7 +2,7 @@
 	namespace tests\components;
 
 	use Yii;
-	use vps\components\Notification;
+	use vps\tools\components\Notification;
 
 	class NotificationTest extends \PHPUnit_Framework_TestCase
 	{

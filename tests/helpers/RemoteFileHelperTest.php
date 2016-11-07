@@ -1,7 +1,7 @@
 <?php
 	namespace tests\helpers;
 
-	use vps\helpers\RemoteFileHelper;
+	use vps\tools\helpers\RemoteFileHelper;
 	use \yii\base\ErrorException;
 
 	class RemoteFileHelperTest extends \PHPUnit_Framework_TestCase

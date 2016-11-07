@@ -1,5 +1,5 @@
 <?php
-	namespace vps\helpers;
+	namespace vps\tools\helpers;
 
 	use Yii;
 
@@ -23,6 +23,30 @@
 
 				return parent::a(Yii::t('app', $text), $url, $options);
 			}
+		}
+
+		/**
+		 * Creates button checkbox or radio group.
+		 * @link http://getbootstrap.com/javascript/#buttons-checkbox-radio
+		 * @param string            $name     Name for the inputs.
+		 * @param string|array|null $selected Selected values.
+		 * @param array             $items    The data item used to generate the checkboxes. The array keys are the
+		 *                                    input values, while the array values are the corresponding labels.
+		 * @param string            $type     Input type - checkbox/radio.
+		 * @return string
+		 */
+		public static function buttonGroup ($name, $selected, $items, $type = 'checkbox')
+		{
+			if ($type == 'checkbox')
+				return self::checkboxList($name, $selected, $items, [ 'class' => 'btn-group', 'data-toggle' => 'buttons', 'item' => function ($index, $label, $name, $checked, $value)
+				{
+					return self::label(self::checkbox($name, $checked, [ 'autocomplete' => 'off', 'value' => $value ]) . ' ' . $label, null, [ 'class' => 'btn btn-default' . ( $checked ? ' active' : '' ) ]);
+				} ]);
+			else
+				return self::radioList($name, $selected, $items, [ 'class' => 'btn-group', 'data-toggle' => 'buttons', 'item' => function ($index, $label, $name, $checked, $value)
+				{
+					return self::label(self::radio($name, $checked, [ 'autocomplete' => 'off', 'value' => $value ]) . ' ' . $label, null, [ 'class' => 'btn btn-default' . ( $checked ? ' active' : '' ) ]);
+				} ]);
 		}
 
 		/**
@@ -106,6 +130,21 @@
 		}
 
 		/**
+		 * Generates Font-Awesome icon.
+		 * @param string $name Font-Awesome icon name. Will be appended after 'fa-' prefix.
+		 * @param array  $options
+		 * @return string
+		 */
+		public static function fa ($name, $options = [ ])
+		{
+			if (!isset( $options[ 'class' ] ))
+				$options[ 'class' ] = '';
+			$options[ 'class' ] = trim($options[ 'class' ] . ' fa fa-' . $name);
+
+			return self::tag('i', '', $options);
+		}
+
+		/**
 		 * Generates bootstrap list group with order displayed.
 		 * @param array $items   Array of elements with following structure:
 		 *                       * title - item title.
@@ -128,5 +167,41 @@
 			};
 
 			return self::ul($items, $options);
+		}
+
+		/**
+		 * Generates table.
+		 * @param array $head
+		 * @param array $body
+		 * @param array $options
+		 * @return string
+		 */
+		public static function table ($head, $body, $options = [ ])
+		{
+			$table = self::beginTag('table', $options);
+
+			if (!empty( $head ) and is_array($head))
+			{
+				$table .= self::beginTag('thead');
+				$table .= self::beginTag('tr');
+				foreach ($head as $item)
+					$table .= self::tag('th', $item);
+				$table .= self::endTag('tr');
+				$table .= self::endTag('thead');
+			}
+
+			$table .= self::beginTag('tbody');
+			foreach ($body as $row)
+			{
+				$table .= self::beginTag('tr');
+				foreach ($row as $item)
+					$table .= self::tag('td', $item);
+				$table .= self::endTag('tr');
+			}
+			$table .= self::endTag('tbody');
+
+			$table .= self::endTag('table');
+
+			return $table;
 		}
 	}

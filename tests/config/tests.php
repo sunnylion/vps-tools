@@ -1,11 +1,11 @@
 <?php
 	return [
 		'id'         => 'vps-tools-tests',
-		'basePath'   => __DIR__ . '/..',
+		'basePath'   => realpath(__DIR__ . '/..'),
 		'language'   => 'ru',
 		'components' => [
 			'category' => [
-				'class'      => '\vps\components\CategoryManager',
+				'class'      => '\vps\tools\components\CategoryManager',
 				'modelClass' => 'tests\models\Category'
 			],
 			'db'       => require_once __DIR__ . '/db.php',
@@ -16,8 +16,7 @@
 						'basePath'       => '@tests/messages',
 						'sourceLanguage' => 'en',
 						'fileMap'        => [
-							'app'              => 'app.php',
-							'app/notification' => 'notification.php'
+							'app'              => 'app.php'
 						],
 					],
 				],
@@ -26,7 +25,7 @@
 				'class' => 'yii\web\Session'
 			],
 			'settings' => [
-				'class'      => '\vps\components\SettingManager',
+				'class'      => '\vps\tools\components\SettingManager',
 				'modelClass' => 'tests\models\Setting'
 			]
 		]

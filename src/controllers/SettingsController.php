@@ -1,8 +1,8 @@
 <?php
-	namespace vps\controllers;
+	namespace vps\tools\controllers;
 
 	use Yii;
-	use vps\helpers\Console;
+	use vps\tools\helpers\Console;
 
 	/**
 	 * Allows to manage settings via console.
