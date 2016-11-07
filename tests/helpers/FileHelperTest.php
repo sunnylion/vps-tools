@@ -31,7 +31,7 @@
 			 * + zdir
 			 */
 
-			$datapath = (new self)->datapath;
+			$datapath = ( new self )->datapath;
 
 			if (is_dir($datapath))
 				shell_exec('rm -rf ' . escapeshellarg($datapath) . '/*');
@@ -44,7 +44,7 @@
 				mkdir($datapath . '/dir_1/dir_1_2/dir_1_2_1', 0755, true);
 				mkdir($datapath . '/dir_1/dir_1_3', 0755, true);
 				mkdir($datapath . '/dir_2', 0755, true);
-				mkdir($datapath . '/dir_3', 0000, true);
+				mkdir($datapath . '/dir_3', 0700, true);
 				mkdir($datapath . '/zdir', 0755, true);
 
 				file_put_contents($datapath . '/dir_1/dir_1_1/file1.txt', 'File #1');
@@ -126,7 +126,7 @@
 				realpath($this->datapath . '/zdir')
 			], FileHelper::listDirs($this->datapath, true));
 
-			$this->assertEquals([ ], FileHelper::listDirs($this->datapath . '/dir_3'));
+			$this->assertEquals([], FileHelper::listDirs($this->datapath . '/dir_3'));
 
 			$this->assertEquals([
 				realpath($this->datapath . '/dir_1/dir_1_2/dir_1_2_1'),
