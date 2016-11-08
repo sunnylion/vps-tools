@@ -52,6 +52,21 @@
 			$this->assertEquals(8593400, TimeHelper::fromFramesToMs(214835));
 		}
 
+		public function testFromSecondsToHuman ()
+		{
+			$this->assertNull(TimeHelper::fromSecondsToHuman(null));
+			$this->assertNull(TimeHelper::fromSecondsToHuman('dsasd'));
+
+			$this->assertEquals('00:00', TimeHelper::fromSecondsToHuman(0));
+			$this->assertEquals('00:01', TimeHelper::fromSecondsToHuman(1.2));
+			$this->assertEquals('00:02', TimeHelper::fromSecondsToHuman(1.9));
+			$this->assertEquals('07:05', TimeHelper::fromSecondsToHuman(425));
+			$this->assertEquals('02:23:13', TimeHelper::fromSecondsToHuman(8593));
+			$this->assertEquals('02:23:13', TimeHelper::fromSecondsToHuman(8593.4));
+			$this->assertEquals('02:23:14', TimeHelper::fromSecondsToHuman(8593.9));
+			$this->assertEquals('02:23:14', TimeHelper::fromSecondsToHuman(8594));
+		}
+
 		public function testNow ()
 		{
 			// @TODO: somehow test it.
