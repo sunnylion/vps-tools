@@ -18,6 +18,110 @@
 			$this->_ntf = new NotificationManager;
 		}
 
+		public function testCopyData ()
+		{
+			$this->_ntf->error('Error test');
+
+			$ntf2 = new NotificationManager();
+			$ntf2->error('Error2 test');
+			$ntf2->message('Message test');
+			$ntf2->warning('Warning test');
+
+			$this->_ntf->copyData($ntf2);
+
+			$data = $this->_ntf->data;
+
+			$this->assertCount(4, $data);
+
+			$this->assertInstanceOf(Notification::class, $data[ 0 ]);
+			$this->assertEquals('Тест ошибки', $data[ 0 ]->message);
+			$this->assertEquals(Notification::ERROR, $data[ 0 ]->type);
+
+			$this->assertInstanceOf(Notification::class, $data[ 1 ]);
+			$this->assertEquals('Error2 test', $data[ 1 ]->message);
+			$this->assertEquals(Notification::ERROR, $data[ 1 ]->type);
+
+			$this->assertInstanceOf(Notification::class, $data[ 2 ]);
+			$this->assertEquals('Тест сообщения', $data[ 2 ]->message);
+			$this->assertEquals(Notification::MESSAGE, $data[ 2 ]->type);
+
+			$this->assertInstanceOf(Notification::class, $data[ 3 ]);
+			$this->assertEquals('Тест предупреждения', $data[ 3 ]->message);
+			$this->assertEquals(Notification::WARNING, $data[ 3 ]->type);
+		}
+
+		public function testCopyErrors ()
+		{
+			$this->_ntf->error('Error test');
+
+			$ntf2 = new NotificationManager();
+			$ntf2->error('Error2 test');
+			$ntf2->message('Message test');
+			$ntf2->warning('Warning test');
+
+			$this->_ntf->copyErrors($ntf2);
+
+			$data = $this->_ntf->data;
+
+			$this->assertCount(2, $data);
+
+			$this->assertInstanceOf(Notification::class, $data[ 0 ]);
+			$this->assertEquals('Тест ошибки', $data[ 0 ]->message);
+			$this->assertEquals(Notification::ERROR, $data[ 0 ]->type);
+
+			$this->assertInstanceOf(Notification::class, $data[ 1 ]);
+			$this->assertEquals('Error2 test', $data[ 1 ]->message);
+			$this->assertEquals(Notification::ERROR, $data[ 1 ]->type);
+		}
+
+		public function testCopyMessages ()
+		{
+			$this->_ntf->error('Error test');
+
+			$ntf2 = new NotificationManager();
+			$ntf2->error('Error2 test');
+			$ntf2->message('Message test');
+			$ntf2->warning('Warning test');
+
+			$this->_ntf->copyMessages($ntf2);
+
+			$data = $this->_ntf->data;
+
+			$this->assertCount(2, $data);
+
+			$this->assertInstanceOf(Notification::class, $data[ 0 ]);
+			$this->assertEquals('Тест ошибки', $data[ 0 ]->message);
+			$this->assertEquals(Notification::ERROR, $data[ 0 ]->type);
+
+			$this->assertInstanceOf(Notification::class, $data[ 1 ]);
+			$this->assertEquals('Тест сообщения', $data[ 1 ]->message);
+			$this->assertEquals(Notification::MESSAGE, $data[ 1 ]->type);
+		}
+
+		public function testCopyWarnings ()
+		{
+			$this->_ntf->error('Error test');
+
+			$ntf2 = new NotificationManager();
+			$ntf2->error('Error2 test');
+			$ntf2->message('Message test');
+			$ntf2->warning('Warning test');
+
+			$this->_ntf->copyWarnings($ntf2);
+
+			$data = $this->_ntf->data;
+
+			$this->assertCount(2, $data);
+
+			$this->assertInstanceOf(Notification::class, $data[ 0 ]);
+			$this->assertEquals('Тест ошибки', $data[ 0 ]->message);
+			$this->assertEquals(Notification::ERROR, $data[ 0 ]->type);
+
+			$this->assertInstanceOf(Notification::class, $data[ 1 ]);
+			$this->assertEquals('Тест предупреждения', $data[ 1 ]->message);
+			$this->assertEquals(Notification::WARNING, $data[ 1 ]->type);
+		}
+
 		public function testError ()
 		{
 			$this->_ntf->error('Error test');
