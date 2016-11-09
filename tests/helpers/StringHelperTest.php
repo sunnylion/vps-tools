@@ -1,10 +1,17 @@
 <?php
 	namespace tests\helpers;
 
-	use vps\helpers\StringHelper;
+	use vps\tools\helpers\StringHelper;
 
 	class StringHelperTest extends \PHPUnit_Framework_TestCase
 	{
+		public function testClear ()
+		{
+			$this->assertEquals('123', StringHelper::clear("123*(&(*"));
+			$this->assertEquals('', StringHelper::clear("*(&(*"));
+			$this->assertEquals('test   asd', StringHelper::clear("{}test  (* asd"));
+		}
+
 		public function testExplode ()
 		{
 			$this->assertEquals([ 'It', 'is', 'a first', 'test' ], StringHelper::explode("It, is, a first, test"));
@@ -15,6 +22,18 @@
 			$this->assertEquals([ 'Disable', '  trim  ', 'here but ignore empty' ], StringHelper::explode("Disable,  trim  ,,,here but ignore empty", ',', false, true));
 			$this->assertEquals([ 'It/', ' is?', ' a', ' test with rtrim' ], StringHelper::explode("It/, is?, a , test with rtrim", ',', 'rtrim'));
 			$this->assertEquals([ 'It', ' is', ' a ', ' test with closure' ], StringHelper::explode("It/, is?, a , test with closure", ',', function ($value) { return trim($value, '/?'); }));
+		}
+
+		public function testMexplode ()
+		{
+			$this->assertNull(StringHelper::mexplode('dasda', true));
+			$this->assertNull(StringHelper::mexplode('dasda', null));
+
+			$this->assertEquals([ 'sd', 'dsda', 'adsad adsad', 'cs' ], StringHelper::mexplode('sd:dsda:adsad adsad;cs', [ ':', ';' ]));
+			$this->assertEquals([ 'sd', 'dsda', 'adsad', 'adsad', 'cs' ], StringHelper::mexplode('sd:dsda:adsad adsad;cs', [ ':', ';', ' ' ]));
+			$this->assertEquals([ 'sd', 'dsd', 'ds', 'd', 'ds', 'd', 'cs' ], StringHelper::mexplode('sd:dsda:adsad adsad;cs', [ ':', ';', ' ', 'a' ]));
+			$this->assertEquals([ 'sd', 'ds', 'd', 'ds', 'd', 'ds', 'd', 'cs' ], StringHelper::mexplode('sd:ds-da:adsad adsad;cs', [ ':', ';', ' ', 'a', '-' ]));
+			$this->assertEquals([ 'sd', 'ds', 'd', 'ds', 'd', 'ds', 'd', 'cs' ], StringHelper::mexplode('sd:ds*da:adsad adsad;cs', [ ':', ';', ' ', 'a', '*' ]));
 		}
 
 		public function testPos ()

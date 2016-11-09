@@ -1,5 +1,5 @@
 <?php
-	namespace vps\helpers;
+	namespace vps\tools\helpers;
 
 	use Yii;
 
@@ -55,10 +55,10 @@
 
 		/**
 		 * Finds maximum upload size based on PHP settings.
-		 * @return string
+		 * @return null|int Size in bytes.
 		 * @see size
 		 */
-		public static function maxUpload ()
+		public static function maxBytesUpload ()
 		{
 			$values = [
 				ini_get('post_max_size'),
@@ -77,7 +77,20 @@
 				}
 			}
 
-			return $min ? self::size($min) : Yii::tr('unlimited');
+			return $min ? $min : null;
+		}
+
+		/**
+		 * Finds maximum upload size based on PHP settings.
+		 * @param mixed $default Value to be returned in case upload size is unlimited.
+		 * @return string|null
+		 * @see size
+		 */
+		public static function maxUpload ($default = null)
+		{
+			$bytes = self::maxBytesUpload();
+
+			return ( $bytes == null ) ? $default : self::size($bytes);
 		}
 
 		/**
@@ -108,9 +121,10 @@
 		 * @param string $string
 		 * @return int|null
 		 */
-		private static function toBytes ($string)
+		public static function toBytes ($string)
 		{
 			$value = null;
+			$string = strtoupper($string);
 
 			preg_match('/(\d+)\s?([KMGT]?)/', $string, $match);
 

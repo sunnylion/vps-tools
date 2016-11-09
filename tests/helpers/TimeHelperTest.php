@@ -2,7 +2,7 @@
 	namespace tests\helpers;
 
 	use Yii;
-	use vps\helpers\TimeHelper;
+	use vps\tools\helpers\TimeHelper;
 	use \yii\base\InvalidParamException;
 
 	class TimeHelperTest extends \PHPUnit_Framework_TestCase
@@ -25,6 +25,8 @@
 			$this->assertEquals('00:00:01.800', TimeHelper::fromFrames(45));
 			$this->assertEquals('00:07:02.360', TimeHelper::fromFrames(10559));
 			$this->assertEquals('02:23:13.400', TimeHelper::fromFrames(214835));
+			$this->assertEquals('02:23:13', TimeHelper::fromFrames(214835, 'HH:MM:SS'));
+			$this->assertEquals('02:23:13:10', TimeHelper::fromFrames(214835, 221321));
 		}
 
 		public function testFromFramesToHuman ()
@@ -48,6 +50,21 @@
 			$this->assertEquals(1800, TimeHelper::fromFramesToMs(45));
 			$this->assertEquals(422360, TimeHelper::fromFramesToMs(10559));
 			$this->assertEquals(8593400, TimeHelper::fromFramesToMs(214835));
+		}
+
+		public function testFromSecondsToHuman ()
+		{
+			$this->assertNull(TimeHelper::fromSecondsToHuman(null));
+			$this->assertNull(TimeHelper::fromSecondsToHuman('dsasd'));
+
+			$this->assertEquals('00:00', TimeHelper::fromSecondsToHuman(0));
+			$this->assertEquals('00:01', TimeHelper::fromSecondsToHuman(1.2));
+			$this->assertEquals('00:02', TimeHelper::fromSecondsToHuman(1.9));
+			$this->assertEquals('07:05', TimeHelper::fromSecondsToHuman(425));
+			$this->assertEquals('02:23:13', TimeHelper::fromSecondsToHuman(8593));
+			$this->assertEquals('02:23:13', TimeHelper::fromSecondsToHuman(8593.4));
+			$this->assertEquals('02:23:14', TimeHelper::fromSecondsToHuman(8593.9));
+			$this->assertEquals('02:23:14', TimeHelper::fromSecondsToHuman(8594));
 		}
 
 		public function testNow ()

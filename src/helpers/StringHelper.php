@@ -1,10 +1,18 @@
 <?php
-	namespace vps\helpers;
-
-	use Yii;
-
+	namespace vps\tools\helpers;
+	
 	class StringHelper extends \yii\helpers\BaseStringHelper
 	{
+		/**
+		 * Removes all characters from string except letters, digits, underscore, hyphen and whitespace characters.
+		 * @param string $str string
+		 * @return string converted string
+		 */
+		public static function clear ($str)
+		{
+			return preg_replace('/[^\s\d\w\-]/u', '', $str);
+		}
+
 		/**
 		 * Overrides parent method with $skipEmpty default value set to true.
 		 * @inheritdoc
@@ -12,6 +20,23 @@
 		public static function explode ($string, $delimiter = ',', $trim = true, $skipEmpty = true)
 		{
 			return parent::explode($string, $delimiter, $trim, $skipEmpty);
+		}
+
+		/**
+		 * Explodes string with multiple delimiters.
+		 * @param string   $string
+		 * @param string[] $delimiters
+		 * @return array|null
+		 */
+		public static function mexplode ($string, $delimiters = [ ',' ])
+		{
+			if (is_string($delimiters) or is_numeric($delimiters))
+				$delimiters = [ $delimiters ];
+
+			if (!is_array($delimiters))
+				return null;
+
+			return preg_split('/[' . implode('', $delimiters) . ']+/', $string, -1, PREG_SPLIT_NO_EMPTY);
 		}
 
 		/**
@@ -53,12 +78,7 @@
 				if ($upper)
 					$characters .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-				$n = strlen($characters);
-				$string = '';
-				for ($i = 0; $i < $length; $i++)
-					$string .= $characters[ rand(0, $n - 1) ];
-
-				return $string;
+				return substr(str_shuffle(str_repeat($characters, $length)), 0, $length);
 			}
 
 			return null;

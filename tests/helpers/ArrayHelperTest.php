@@ -1,7 +1,7 @@
 <?php
 	namespace tests\helpers;
 
-	use vps\helpers\ArrayHelper;
+	use vps\tools\helpers\ArrayHelper;
 	use \yii\base\ErrorException;
 
 	class ArrayStruct

@@ -1,10 +1,11 @@
 <?php
-	namespace vps\components;
+	namespace vps\tools\components;
 
 	use Yii;
 
 	/**
-	 * This class is intended to manage category tree which is in turn based on nested sets behavior.
+	 * This class is intended to manage category tree which is in turn based on
+	 * nested sets behavior.
 	 * [[https://github.com/creocoder/yii2-nested-sets]]
 	 * @package common\components
 	 * @property-read array    $all
@@ -16,17 +17,27 @@
 		/**
 		 * @var Category[] Category tree.
 		 */
-		private $_data = [ ];
+		protected $_data = [];
+
+		/**
+		 * @var string This is for imploding GUIDs in guid paths.
+		 */
+		protected $_guidPathDelimiter = ':';
 
 		/**
 		 * @var string
 		 */
-		private $_modelClass = '\common\models\Category';
+		protected $_modelClass = '\common\models\Category';
 
 		/**
 		 * @var [[Category]] Root category.
 		 */
-		private $_root;
+		protected $_root;
+
+		/**
+		 * @var string This is for imploding titles in title paths.
+		 */
+		protected $_titlePathDelimiter = ' : ';
 
 		/**
 		 * Populates category tree with data loaded from database.
@@ -43,7 +54,7 @@
 				$root->makeRoot();
 
 				$this->_root = $class::find()->roots()->one();
-				$this->_data = [ ];
+				$this->_data = [];
 			}
 			else
 				$this->_data = $this->_root->children()->all();
@@ -67,7 +78,7 @@
 		 */
 		public function getChildren ($category)
 		{
-			$children = [ ];
+			$children = [];
 			foreach ($this->_data as $item)
 				if ($item->lft > $category->lft and $item->rgt < $category->rgt)
 					$children[] = $item;
@@ -90,6 +101,26 @@
 				foreach ($this->_data as $item)
 					if ($category->lft > $item->lft and $category->rgt < $item->rgt and $item->depth == $depth)
 						return $item;
+			}
+
+			return null;
+		}
+
+		/**
+		 * Finds all parents from top one to nearest.
+		 * @param  [[Category]] $category
+		 * @return [[Category]][]|null
+		 */
+		public function getParents ($category)
+		{
+			if ($category instanceof $this->_modelClass)
+			{
+				$parents = [];
+				foreach ($this->_data as $item)
+					if ($category->lft > $item->lft and $category->rgt < $item->rgt)
+						$parents[] = $item;
+
+				return $parents;
 			}
 
 			return null;
@@ -206,10 +237,10 @@
 		/**
 		 * Builds full title and GUID paths for all categories.
 		 */
-		private function buildPaths ()
+		protected function buildPaths ()
 		{
-			$titles = [ ];
-			$guids = [ ];
+			$titles = [];
+			$guids = [];
 
 			$n = count($this->_data);
 			for ($i = 0; $i < $n; $i++)
@@ -227,8 +258,8 @@
 				$titles[ $parent->id ][] = $parent->title;
 				$guids[ $parent->id ][] = $parent->guid;
 
-				$parent->titlePath = implode(' : ', $titles[ $parent->id ]);
-				$parent->guidPath = implode(':', $guids[ $parent->id ]);
+				$parent->titlePath = implode($this->_titlePathDelimiter, $titles[ $parent->id ]);
+				$parent->guidPath = implode($this->_guidPathDelimiter, $guids[ $parent->id ]);
 			}
 		}
 	}

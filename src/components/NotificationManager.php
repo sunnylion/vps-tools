@@ -1,5 +1,5 @@
 <?php
-	namespace vps\components;
+	namespace vps\tools\components;
 
 	use Yii;
 

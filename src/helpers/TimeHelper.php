@@ -1,5 +1,5 @@
 <?php
-	namespace vps\helpers;
+	namespace vps\tools\helpers;
 
 	use Yii;
 
@@ -16,16 +16,27 @@
 		public static $fps = 25;
 
 		/**
-		 * Formats given date in ISO 8601. Expected result is as follow: 2010-03-01T13:10:25+03:00.
-		 * @param integer|string|\DateTime $date The value to be formatted. The following types of value are supported:
-		 *                                       - an integer representing a UNIX timestamp
-		 *                                       - a string that can be [parsed to create a DateTime
-		 *                                       object](http://php.net/manual/en/datetime.formats.php). The timestamp
-		 *                                       is assumed to be in [[defaultTimeZone]] unless a time zone is
-		 *                                       explicitly given.
-		 *                                       - a PHP [DateTime](http://php.net/manual/en/class.datetime.php) object
+		 * Formats given date in ISO 8601. Expected result is as follow:
+		 * 2010-03-01T13:10:25+03:00.
+		 * @param integer|string|\DateTime $date   The value to be formatted.
+		 *                                         The following types of value
+		 *                                         are supported:
+		 *                                         - an integer representing a
+		 *                                         UNIX timestamp
+		 *                                         - a string that can be
+		 *                                         [parsed to create a DateTime
+		 *                                         object](http://php.net/manual/en/datetime.formats.php).
+		 *                                         The timestamp is assumed to
+		 *                                         be in [[defaultTimeZone]]
+		 *                                         unless a time zone is
+		 *                                         explicitly given.
+		 *                                         - a PHP
+		 *                                         [DateTime](http://php.net/manual/en/class.datetime.php)
+		 *                                         object
 		 * @return string The formatted result.
-		 * @throws \yii\base\InvalidParamException If the input value can not be evaluated as a date value.
+		 * @throws \yii\base\InvalidParamException If the input value can not
+		 *                                         be evaluated as a date
+		 *                                         value.
 		 */
 		public static function cdate ($date)
 		{
@@ -37,7 +48,7 @@
 		 * @param  integer|string $frames Number of frames.
 		 * @return string Time in format HH:MM:SS.MSS.
 		 */
-		public static function fromFrames ($frames)
+		public static function fromFrames ($frames, $format = 'HH:MM:SS.MSS')
 		{
 			if (is_numeric($frames))
 			{
@@ -47,7 +58,12 @@
 				$f = $frames - $h * 3600 * self::$fps - $m * 60 * self::$fps - $s * self::$fps;
 				$ms = $f * 1000 / self::$fps;
 
-				return str_pad($h, 2, '0', STR_PAD_LEFT) . ':' . str_pad($m, 2, '0', STR_PAD_LEFT) . ':' . str_pad($s, 2, '0', STR_PAD_LEFT) . '.' . str_pad($ms, 3, '0', STR_PAD_LEFT);
+				if ($format == 'HH:MM:SS.MSS')
+					return sprintf("%'.02d:%'.02d:%'.02d.%'.03d", $h, $m, $s, $ms);
+				elseif ($format == 'HH:MM:SS')
+					return sprintf("%'.02d:%'.02d:%'.02d", $h, $m, $s);
+				else
+					return sprintf("%'.02d:%'.02d:%'.02d:%'.02d", $h, $m, $s, $f);
 			}
 
 			return null;
@@ -67,9 +83,9 @@
 				$s = (int)round($frames / self::$fps - $h * 3600 - $m * 60);
 
 				if ($h == 0)
-					return str_pad($m, 2, '0', STR_PAD_LEFT) . ':' . str_pad($s, 2, '0', STR_PAD_LEFT);
+					return sprintf("%'.02d:%'.02d", $m, $s);
 				else
-					return str_pad($h, 2, '0', STR_PAD_LEFT) . ':' . str_pad($m, 2, '0', STR_PAD_LEFT) . ':' . str_pad($s, 2, '0', STR_PAD_LEFT);
+					return sprintf("%'.02d:%'.02d:%'.02d", $h, $m, $s);
 			}
 
 			return null;
@@ -89,6 +105,28 @@
 		}
 
 		/**
+		 * Converts seconds to human readable time.
+		 * @param  integer|string $seconds
+		 * @return string Time in format (HH:)MM:SS.
+		 */
+		public static function fromSecondsToHuman ($seconds)
+		{
+			if (is_numeric($seconds))
+			{
+				$h = (int)( $seconds / 3600 );
+				$m = (int)( $seconds / 60 - $h * 60 );
+				$s = (int)round($seconds - $h * 3600 - $m * 60);
+
+				if ($h == 0)
+					return sprintf("%'.02d:%'.02d", $m, $s);
+				else
+					return sprintf("%'.02d:%'.02d:%'.02d", $h, $m, $s);
+			}
+
+			return null;
+		}
+
+		/**
 		 * Return current date and time formatted via [[$dtFormat]].
 		 * @return string The formatted current date and time.
 		 */
@@ -98,34 +136,11 @@
 		}
 
 		/**
-		 * Converts time to frames.
-		 * @param string $time Input time in format HH:MM:SS, HH:MM:SS.FF or HH:MM:SS.MSS.
-		 * @return null|integer NUll in case of wrong format input or frames otherwise.
-		 */
-		public static function toFrames ($time)
-		{
-			// 06:23:16.213
-			preg_match('/(\d{2}):(\d{2}):(\d{2})[\.:](\d{3})/', $time, $match);
-			if (count($match) == 5)
-				return (int)( self::$fps * ( $match[ 4 ] / 1000 + $match[ 3 ] + $match[ 2 ] * 60 + $match[ 1 ] * 3600 ) );
-
-			// 06:23:16.21
-			preg_match('/(\d{2}):(\d{2}):(\d{2})[\.:](\d{2})/', $time, $match);
-			if (count($match) == 5)
-				return $match[ 4 ] + self::$fps * ( $match[ 3 ] + $match[ 2 ] * 60 + $match[ 1 ] * 3600 );
-
-			// 06:23:16
-			preg_match('/(\d{2}):(\d{2}):(\d{2})/', $time, $match);
-			if (count($match) == 4)
-				return self::$fps * ( $match[ 3 ] + $match[ 2 ] * 60 + $match[ 1 ] * 3600 );
-
-			return null;
-		}
-
-		/**
 		 * Converts time to milliseconds.
-		 * @param string $time Input time in format HH:MM:SS, HH:MM:SS.FF or HH:MM:SS.MSS.
-		 * @return null|integer NUll in case of wrong format input or milliseconds otherwise.
+		 * @param string $time  Input time in format HH:MM:SS, HH:MM:SS.FF or
+		 *                      HH:MM:SS.MSS.
+		 * @return null|integer NUll in case of wrong format input or
+		 *                      milliseconds otherwise.
 		 */
 		public static function toMs ($time)
 		{
@@ -149,8 +164,10 @@
 
 		/**
 		 * Converts time to seconds.
-		 * @param string $time Input time in format HH:MM:SS, HH:MM:SS.FF or HH:MM:SS.MSS.
-		 * @return null|integer NUll in case of wrong format input or seconds otherwise.
+		 * @param string $time  Input time in format HH:MM:SS, HH:MM:SS.FF or
+		 *                      HH:MM:SS.MSS.
+		 * @return null|integer NUll in case of wrong format input or seconds
+		 *                      otherwise.
 		 */
 		public static function toSeconds ($time)
 		{
@@ -178,6 +195,33 @@
 			preg_match('/(\d{2}):(\d{2}):(\d{2})/', $time, $match);
 			if (count($match) == 4)
 				return $match[ 3 ] + $match[ 2 ] * 60 + $match[ 1 ] * 3600;
+
+			return null;
+		}
+
+		/**
+		 * Converts time to frames.
+		 * @param string $time  Input time in format HH:MM:SS, HH:MM:SS.FF or
+		 *                      HH:MM:SS.MSS.
+		 * @return null|integer NUll in case of wrong format input or frames
+		 *                      otherwise.
+		 */
+		public static function toFrames ($time)
+		{
+			// 06:23:16.213
+			preg_match('/(\d{2}):(\d{2}):(\d{2})[\.:](\d{3})/', $time, $match);
+			if (count($match) == 5)
+				return (int)( self::$fps * ( $match[ 4 ] / 1000 + $match[ 3 ] + $match[ 2 ] * 60 + $match[ 1 ] * 3600 ) );
+
+			// 06:23:16.21
+			preg_match('/(\d{2}):(\d{2}):(\d{2})[\.:](\d{2})/', $time, $match);
+			if (count($match) == 5)
+				return $match[ 4 ] + self::$fps * ( $match[ 3 ] + $match[ 2 ] * 60 + $match[ 1 ] * 3600 );
+
+			// 06:23:16
+			preg_match('/(\d{2}):(\d{2}):(\d{2})/', $time, $match);
+			if (count($match) == 4)
+				return self::$fps * ( $match[ 3 ] + $match[ 2 ] * 60 + $match[ 1 ] * 3600 );
 
 			return null;
 		}
