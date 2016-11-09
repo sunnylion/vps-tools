@@ -19,6 +19,42 @@
 		private $_data = [];
 
 		/**
+		 * Copies all data from other notification manager.
+		 * @param NotificationManager $manager
+		 */
+		public function copyData ($manager)
+		{
+			$this->_data = array_merge($this->_data, $manager->getData());
+		}
+
+		/**
+		 * Copies all errors from other notification manager.
+		 * @param NotificationManager $manager
+		 */
+		public function copyErrors ($manager)
+		{
+			$this->_data = array_merge($this->_data, $manager->getErrors());
+		}
+
+		/**
+		 * Copies all messages from other notification manager.
+		 * @param NotificationManager $manager
+		 */
+		public function copyMessages ($manager)
+		{
+			$this->_data = array_merge($this->_data, $manager->getMessages());
+		}
+
+		/**
+		 * Copies all warnings from other notification manager.
+		 * @param NotificationManager $manager
+		 */
+		public function copyWarnings ($manager)
+		{
+			$this->_data = array_merge($this->_data, $manager->getWarnings());
+		}
+
+		/**
 		 * Initialization method for checking if there are some notification
 		 * stored in session. If so the list of notifications is populated and
 		 * the list of notifications stored in session is cleared.
