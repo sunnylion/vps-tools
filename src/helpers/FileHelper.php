@@ -244,4 +244,48 @@
 
 			return null;
 		}
+		/**
+		 * Get mimetype of the given file.
+		 * @param  string $path Path to the file.
+		 * @return string|null
+		 */
+		public static function mimetype ($path)
+		{
+			$finfo = finfo_open(FILEINFO_MIME_TYPE);
+			if ($finfo)
+			{
+				$info = finfo_file($finfo, $path);
+				finfo_close($finfo);
+
+				return $info;
+			}
+
+			return null;
+		}
+		
+		/**
+		 * Directory copy
+		 * @param  string $from
+		 * @param  string $to
+		 * @param  boolean $recursive
+		 * 
+		 */
+		
+		public static function copy ($from, $to, $recursive = true)
+		{
+			$files = self::listFiles($from);
+
+			if (!is_dir($to))
+				mkdir($to);
+
+			foreach ($files as $file)
+				copy($from . '/' . $file, $to . '/' . $file);
+
+			if ($recursive)
+			{
+				$dirs = self::listDirs($from);
+				foreach ($dirs as $dir)
+					self::copy($from . DEL . $dir, $to . DEL . $dir, true);
+			}
+		}
 	}
