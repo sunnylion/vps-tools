@@ -249,7 +249,7 @@
 		 * @param  string $path Path to the file.
 		 * @return string|null
 		 */
-		public static function mimetype ($path)
+		public static function mimetypeFile ($path)
 		{
 			$finfo = finfo_open(FILEINFO_MIME_TYPE);
 			if ($finfo)
@@ -263,29 +263,4 @@
 			return null;
 		}
 		
-		/**
-		 * Directory copy
-		 * @param  string $from
-		 * @param  string $to
-		 * @param  boolean $recursive
-		 * 
-		 */
-		
-		public static function copy ($from, $to, $recursive = true)
-		{
-			$files = self::listFiles($from);
-
-			if (!is_dir($to))
-				mkdir($to);
-
-			foreach ($files as $file)
-				copy($from . '/' . $file, $to . '/' . $file);
-
-			if ($recursive)
-			{
-				$dirs = self::listDirs($from);
-				foreach ($dirs as $dir)
-					self::copy($from . DEL . $dir, $to . DEL . $dir, true);
-			}
 		}
-	}

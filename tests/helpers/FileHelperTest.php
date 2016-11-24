@@ -208,4 +208,13 @@
 				'dir_1_2/file7.txt'
 			], FileHelper::listRelativeFiles($this->datapath . '/dir_1/dir_1_2', $this->datapath . '/dir_1'));
 		}
+		
+		public function testMimetypeFile()
+		{
+			self::init();
+
+			$this->assertNull(FileHelper::mimetypeFile('ashdjghajsdgj'));
+			$this->assertEquals(['text/plain'], FileHelper::mimetypeFile($this->datapath . '/dir_1/dir_1_1/file1.txt'));
+			
+		}
 	}
