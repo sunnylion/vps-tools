@@ -302,4 +302,17 @@
 				}
 			}
 		}
+		
+		/**
+		 * Checks whether given array is accosiative.
+		 * @param  array $a
+		 * @return boolean
+		 */
+		public static function isAssoc($a)
+		{
+			foreach(array_keys($a) as $key)
+				if (!is_int($key))
+					return true;
+			return false;
+		}
 	}
