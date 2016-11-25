@@ -176,6 +176,16 @@
 			], FileHelper::listItems($this->datapath . '/dir_1/dir_1_2', true));
 		}
 
+		public function testMimetypeFile ()
+		{
+			self::init();
+
+			$this->assertEquals('directory', FileHelper::mimetypeFile($this->datapath));
+			$this->assertEquals('text/plain', FileHelper::mimetypeFile($this->datapath . '/dir_1/dir_1_1/file1.txt'));
+			$this->assertEquals('application/xml', FileHelper::mimetypeFile($this->datapath . '/../../phpunit.xml'));
+			$this->assertEquals('text/x-php', FileHelper::mimetypeFile($this->datapath . '/../../bootstrap.php'));
+		}
+
 		public function testListItemsByDate ()
 		{
 			$this->assertNull(FileHelper::listItemsByDate('ashdjghajsdgj'));

@@ -244,4 +244,23 @@
 
 			return null;
 		}
-	}
+		/**
+		 * Get mimetype of the given file.
+		 * @param  string $path Path to the file.
+		 * @return string|null
+		 */
+		public static function mimetypeFile ($path)
+		{
+			$finfo = finfo_open(FILEINFO_MIME_TYPE);
+			if ($finfo)
+			{
+				$info = finfo_file($finfo, $path);
+				finfo_close($finfo);
+
+				return $info;
+			}
+
+			return null;
+		}
+		
+		}
