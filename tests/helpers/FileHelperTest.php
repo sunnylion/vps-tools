@@ -213,8 +213,11 @@
 		{
 			self::init();
 
-			$this->assertNull(FileHelper::mimetypeFile('ashdjghajsdgj'));
-			$this->assertEquals(['text/plain'], FileHelper::mimetypeFile($this->datapath . '/dir_1/dir_1_1/file1.txt'));
+		
+			$this->assertEquals('directory', FileHelper::mimetypeFile($this->datapath));
+			$this->assertEquals('text/plain', FileHelper::mimetypeFile($this->datapath . '/dir_1/dir_1_1/file1.txt'));
+			$this->assertEquals('application/xml', FileHelper::mimetypeFile($this->datapath . '/../../phpunit.xml'));
+			$this->assertEquals('text/x-php', FileHelper::mimetypeFile($this->datapath . '/../../bootstrap.php'));
 			
 		}
 	}
