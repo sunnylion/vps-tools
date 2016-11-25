@@ -226,17 +226,16 @@
 			ArrayHelper::setValue($array, 'a.c.2', 15);
 			$this->assertEquals([ 1, 'a' => [ 'b' => [ 'b1' => 10, 'b2' => 20 ], 'c' => [ 10, 6, 15 ] ], 'key' => 0, 10 ], $array);
 		}
-		public function testIfAssoc ()
+		public function testIsAssoc ()
 		{
 			$array = [ 'a' => 10, 'b' => 20, 'c' => '1' ];
-			$this->assertTrue(ArrayHelper::ifAssoc($array););
+			$this->assertTrue(ArrayHelper::isAssoc($array));
 			
 			$array = [ 10, 20, 'c' => '1' ];
-			$this->assertTrue(ArrayHelper::ifAssoc($array););
+			$this->assertTrue(ArrayHelper::isAssoc($array));
 			
 			$array = [  10, 'b', 'c'  ];
-			$this->assertFalse(ArrayHelper::ifAssoc($array););
+			$this->assertFalse(ArrayHelper::isAssoc($array));
 			
-
 		}
 	}
