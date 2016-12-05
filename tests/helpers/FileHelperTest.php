@@ -180,10 +180,10 @@
 		{
 			self::init();
 
-			$this->assertEquals('directory', FileHelper::mimetypeFile($this->datapath));
-			$this->assertEquals('text/plain', FileHelper::mimetypeFile($this->datapath . '/dir_1/dir_1_1/file1.txt'));
-			$this->assertEquals('application/xml', FileHelper::mimetypeFile($this->datapath . '/../../phpunit.xml'));
-			$this->assertEquals('text/x-php', FileHelper::mimetypeFile($this->datapath . '/../../bootstrap.php'));
+			$this->assertEquals(FileHelper::MIME_DIR, FileHelper::mimetypeFile($this->datapath));
+			$this->assertEquals(FileHelper::MIME_TXT, FileHelper::mimetypeFile($this->datapath . '/dir_1/dir_1_1/file1.txt'));
+			$this->assertEquals(FileHelper::MIME_XML, FileHelper::mimetypeFile($this->datapath . '/../../phpunit.xml'));
+			$this->assertEquals(FileHelper::MIME_PHP, FileHelper::mimetypeFile($this->datapath . '/../../bootstrap.php'));
 		}
 
 		public function testListItemsByDate ()

@@ -1,10 +1,13 @@
 <?php
 	namespace vps\tools\helpers;
 
-	use Yii;
-
 	class FileHelper extends \yii\helpers\BaseFileHelper
 	{
+		const MIME_DIR = 'directory';
+		const MIME_PHP = 'text/x-php';
+		const MIME_TXT = 'text/plain';
+		const MIME_XML = 'application/xml';
+
 		/**
 		 * Clears given directory without deleting it itself.
 		 * @param  string $path
@@ -60,7 +63,8 @@
 
 		/**
 		 * Counts files and directories in given directory. Not recursive.
-		 * @param  string $path The directory under which the items shoul be counted.
+		 * @param  string $path The directory under which the items shoul be
+		 *                      counted.
 		 * @return integer|null
 		 */
 		public static function countItemsInDir ($path)
@@ -95,15 +99,17 @@
 
 		/**
 		 * Gets directories list in given directory.
-		 * @param  string  $path     The directory under which the items will be looked for.
-		 * @param  boolean $absolute Whether return path to items should be absolute.
+		 * @param  string  $path     The directory under which the items will
+		 *                           be looked for.
+		 * @param  boolean $absolute Whether return path to items should be
+		 *                           absolute.
 		 * @return array|null List of paths to the found items.
 		 */
 		public static function listDirs ($path, $absolute = false)
 		{
 			if (is_dir($path) and is_readable($path))
 			{
-				$data = [ ];
+				$data = [];
 				$it = new \FilesystemIterator($path);
 				foreach ($it as $item)
 				{
@@ -119,15 +125,17 @@
 
 		/**
 		 * Gets files list in given directory.
-		 * @param  string  $path     The directory under which the items will be looked for.
-		 * @param  boolean $absolute Whether return path to items should be absolute.
+		 * @param  string  $path     The directory under which the items will
+		 *                           be looked for.
+		 * @param  boolean $absolute Whether return path to items should be
+		 *                           absolute.
 		 * @return array|null List of paths to the found items.
 		 */
 		public static function listFiles ($path, $absolute = false)
 		{
 			if (is_dir($path) and is_readable($path))
 			{
-				$data = [ ];
+				$data = [];
 				$it = new \FilesystemIterator($path);
 				foreach ($it as $item)
 				{
@@ -143,15 +151,17 @@
 
 		/**
 		 * Gets files and directories list in given directory.
-		 * @param  string  $path     The directory under which the items will be looked for.
-		 * @param  boolean $absolute Whether return path to items should be absolute.
+		 * @param  string  $path     The directory under which the items will
+		 *                           be looked for.
+		 * @param  boolean $absolute Whether return path to items should be
+		 *                           absolute.
 		 * @return array|null List of paths to the found items.
 		 */
 		public static function listItems ($path, $absolute = false)
 		{
 			if (is_dir($path) and is_readable($path))
 			{
-				$data = [ ];
+				$data = [];
 
 				$it = new \FilesystemIterator($path);
 				foreach ($it as $item)
@@ -164,17 +174,20 @@
 		}
 
 		/**
-		 * Gets files and directories list in given directory and order it by modification time. Not recursive.
-		 * @param  string  $path  The directory under which the files will be looked for.
+		 * Gets files and directories list in given directory and order it by
+		 * modification time. Not recursive.
+		 * @param  string  $path  The directory under which the files will be
+		 *                        looked for.
 		 * @param  integer $order Order direction. Default is descending.
-		 * @return array|null Array of pairs 'modification time - full path to the file'.
+		 * @return array|null Array of pairs 'modification time - full path to
+		 *                        the file'.
 		 */
 		public static function listItemsByDate ($path, $order = SORT_DESC)
 		{
 			if (is_dir($path) and is_readable($path))
 			{
-				$data = [ ];
-				$time = [ ];
+				$data = [];
+				$time = [];
 
 				$it = new \FilesystemIterator($path);
 				foreach ($it as $item)
@@ -194,8 +207,10 @@
 		/**
 		 * Gets files list in given directory that match pattern.
 		 * @param  string  $pattern
-		 * @param  string  $path     The directory under which the items will be looked for.
-		 * @param  boolean $absolute Whether return path to items should be absolute.
+		 * @param  string  $path     The directory under which the items will
+		 *                           be looked for.
+		 * @param  boolean $absolute Whether return path to items should be
+		 *                           absolute.
 		 * @return array List of paths to the found items.
 		 */
 		public static function listPatternItems ($path, $pattern = '*', $absolute = false)
@@ -207,7 +222,7 @@
 				if ($absolute)
 					return $files;
 
-				$data = [ ];
+				$data = [];
 				$n = strlen($path . '/');
 
 				foreach ($files as $file)
@@ -220,7 +235,8 @@
 		}
 
 		/**
-		 * Finds recursively files in given path and return list of paths relative to secondparam.
+		 * Finds recursively files in given path and return list of paths
+		 * relative to secondparam.
 		 * @param  string $path
 		 * @param  string $relativepath
 		 * @return array
@@ -229,7 +245,7 @@
 		{
 			if (is_dir($path) and is_readable($path))
 			{
-				$data = [ ];
+				$data = [];
 				$list = self::findFiles($path);
 				$relativepath = rtrim($relativepath, '/') . '/';
 				$n = strlen($relativepath);
@@ -244,6 +260,7 @@
 
 			return null;
 		}
+
 		/**
 		 * Get mimetype of the given file.
 		 * @param  string $path Path to the file.
@@ -262,5 +279,5 @@
 
 			return null;
 		}
-		
-		}
+
+	}
