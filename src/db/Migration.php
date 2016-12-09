@@ -9,7 +9,8 @@
 		 * Creates database view.
 		 * @param string $name    View name.
 		 * @param Query  $query   Query that is used to create view.
-		 * @param bool   $replace Whether to replace existing view with the same name.
+		 * @param bool   $replace Whether to replace existing view with the
+		 *                        same name.
 		 * @throws \yii\db\Exception
 		 * @see dropView
 		 */
@@ -38,7 +39,8 @@
 		}
 
 		/**
-		 * Loads queries from file and executes them. Each query should be on new line just in case.
+		 * Loads queries from file and executes them. Each query should be on
+		 * new line just in case.
 		 * @param string $path Path to the file.
 		 * @throws \Exception
 		 * @throws \yii\db\Exception
@@ -58,5 +60,15 @@
 			}
 			else
 				throw new \Exception ('Cannot open file ' . $path . ' for reading.');
+		}
+
+		/**
+		 * Sets foreign key check to 1 or 0.
+		 * @param bool $check
+		 */
+		public function foreignKeyCheck ($check = true)
+		{
+			$check = intval(boolval($check));
+			$this->db->createCommand("SET FOREIGN_KEY_CHECKS=$check")->execute();
 		}
 	}
