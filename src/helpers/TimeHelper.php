@@ -71,10 +71,11 @@
 
 		/**
 		 * Converts frames to human readable time.
-		 * @param  integer|string $frames Number of frames.
+		 * @param  integer|string $frames               Number of frames.
+		 * @param boolean         $withLeadingZeroHours If hours are zero should one include them in output or not.
 		 * @return string Time in format (HH:)MM:SS.
 		 */
-		public static function fromFramesToHuman ($frames)
+		public static function fromFramesToHuman ($frames, $withLeadingZeroHours = false)
 		{
 			if (is_numeric($frames))
 			{
@@ -82,7 +83,7 @@
 				$m = (int)( $frames / self::$fps / 60 - $h * 60 );
 				$s = (int)round($frames / self::$fps - $h * 3600 - $m * 60);
 
-				if ($h == 0)
+				if ($h == 0 and !$withLeadingZeroHours)
 					return sprintf("%'.02d:%'.02d", $m, $s);
 				else
 					return sprintf("%'.02d:%'.02d:%'.02d", $h, $m, $s);
@@ -106,10 +107,11 @@
 
 		/**
 		 * Converts seconds to human readable time.
-		 * @param  integer|string $seconds
+		 * @param integer|string $seconds
+		 * @param boolean        $withLeadingZeroHours If hours are zero should one include them in output or not.
 		 * @return string Time in format (HH:)MM:SS.
 		 */
-		public static function fromSecondsToHuman ($seconds)
+		public static function fromSecondsToHuman ($seconds, $withLeadingZeroHours = false)
 		{
 			if (is_numeric($seconds))
 			{
@@ -117,7 +119,7 @@
 				$m = (int)( $seconds / 60 - $h * 60 );
 				$s = (int)round($seconds - $h * 3600 - $m * 60);
 
-				if ($h == 0)
+				if ($h == 0 and !$withLeadingZeroHours)
 					return sprintf("%'.02d:%'.02d", $m, $s);
 				else
 					return sprintf("%'.02d:%'.02d:%'.02d", $h, $m, $s);

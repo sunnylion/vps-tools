@@ -39,6 +39,12 @@
 			$this->assertEquals('07:02', TimeHelper::fromFramesToHuman(10559));
 			$this->assertEquals('02:23:13', TimeHelper::fromFramesToHuman(214835));
 			$this->assertEquals('02:23:14', TimeHelper::fromFramesToHuman(214840));
+
+			$this->assertEquals('00:00:00', TimeHelper::fromFramesToHuman(0, true));
+			$this->assertEquals('00:00:01', TimeHelper::fromFramesToHuman(35, true));
+			$this->assertEquals('00:07:02', TimeHelper::fromFramesToHuman(10559, true));
+			$this->assertEquals('02:23:13', TimeHelper::fromFramesToHuman(214835, true));
+			$this->assertEquals('02:23:14', TimeHelper::fromFramesToHuman(214840, true));
 		}
 
 		public function testFromFramesToMs ()
@@ -65,6 +71,15 @@
 			$this->assertEquals('02:23:13', TimeHelper::fromSecondsToHuman(8593.4));
 			$this->assertEquals('02:23:14', TimeHelper::fromSecondsToHuman(8593.9));
 			$this->assertEquals('02:23:14', TimeHelper::fromSecondsToHuman(8594));
+
+			$this->assertEquals('00:00:00', TimeHelper::fromSecondsToHuman(0, true));
+			$this->assertEquals('00:00:01', TimeHelper::fromSecondsToHuman(1.2, true));
+			$this->assertEquals('00:00:02', TimeHelper::fromSecondsToHuman(1.9, true));
+			$this->assertEquals('00:07:05', TimeHelper::fromSecondsToHuman(425, true));
+			$this->assertEquals('02:23:13', TimeHelper::fromSecondsToHuman(8593, true));
+			$this->assertEquals('02:23:13', TimeHelper::fromSecondsToHuman(8593.4, true));
+			$this->assertEquals('02:23:14', TimeHelper::fromSecondsToHuman(8593.9, true));
+			$this->assertEquals('02:23:14', TimeHelper::fromSecondsToHuman(8594, true));
 		}
 
 		public function testNow ()
