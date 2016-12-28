@@ -13,27 +13,25 @@
 		 */
 		public static function info ($path, $names = null)
 		{
-			$data = [ ];
+			$data = [];
 
 			$ffprobe = self::binpath('ffprobe');
 			exec($ffprobe . ' ' . escapeshellarg($path) . ' -show_format -show_streams -v quiet', $format);
+			// Remove values such as [FORMAT], [/STREAM] and other.
+			$format = array_filter($format, function ($value) { return ( strpos($value, '[') === false ); });
 
-			$info = [ ];
-			$tags = [ '[FORMAT]', '[/FORMAT]', '[STREAM]', '[/STREAM]' ];
+			$info = [];
 			foreach ($format as $line)
 			{
-				if (!in_array($line, $tags))
-				{
-					list( $key, $value ) = explode('=', $line);
-					$info[ $key ] = $value;
-				}
+				list($key, $value) = explode('=', $line);
+				$info[ $key ] = $value;
 			}
 
 			if (is_array($names))
 			{
 				foreach ($names as $name)
 				{
-					if (isset( $info[ $name ] ))
+					if (isset($info[ $name ]))
 						$data[ $name ] = $info[ $name ];
 				}
 			}
