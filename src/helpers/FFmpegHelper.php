@@ -17,14 +17,13 @@
 
 			$ffprobe = self::binpath('ffprobe');
 			exec($ffprobe . ' ' . escapeshellarg($path) . ' -show_format -show_streams -v quiet', $format);
-			// Remove values such as [FORMAT], [/STREAM] and other.
-			$format = array_filter($format, function ($value) { return ( strpos($value, '[') === false ); });
 
 			$info = [];
 			foreach ($format as $line)
 			{
-				list($key, $value) = explode('=', $line);
-				$info[ $key ] = $value;
+				preg_match("/(.*)\=(.*)/", $line, $match);
+				if (count($match) == 3)
+					$info[ $match[ 1 ] ] = $match[ 2 ];
 			}
 
 			if (is_array($names))
