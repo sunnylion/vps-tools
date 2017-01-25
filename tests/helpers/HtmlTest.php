@@ -13,6 +13,12 @@
 			$this->assertEquals('<a href="http://google.com">link text</a>', Html::a('link text', 'http://google.com', [ 'raw' => true ]));
 		}
 
+		public function testAfa ()
+		{
+			$this->assertEquals('<a href="http://google.com"><i class="fa fa-test"></i></a>', Html::afa('test', 'http://google.com'));
+			$this->assertEquals('<a href="http://google.com" title="test"><i class="fa fa-icon" title="test"></i></a>', Html::afa('icon', 'http://google.com', [ 'title' => "test" ]));
+		}
+
 		public function testButtonFa ()
 		{
 			$this->assertEquals('<button type="button"><i class="fa fa-tick margin"></i>test</button>', Html::buttonFa('test', 'tick'));
@@ -40,9 +46,9 @@
 
 		public function testTable ()
 		{
-			$this->assertEquals('<table><tbody></tbody></table>', Html::table([ ], [ ]));
-			$this->assertEquals('<table class="table"><tbody></tbody></table>', Html::table([ ], [ ], [ 'class' => 'table' ]));
-			$this->assertEquals('<table class="table"><thead><tr><th>1</th><th>2</th><th>3</th></tr></thead><tbody></tbody></table>', Html::table([ 1, 2, 3 ], [ ], [ 'class' => 'table' ]));
+			$this->assertEquals('<table><tbody></tbody></table>', Html::table([], []));
+			$this->assertEquals('<table class="table"><tbody></tbody></table>', Html::table([], [], [ 'class' => 'table' ]));
+			$this->assertEquals('<table class="table"><thead><tr><th>1</th><th>2</th><th>3</th></tr></thead><tbody></tbody></table>', Html::table([ 1, 2, 3 ], [], [ 'class' => 'table' ]));
 			$this->assertEquals('<table class="table"><thead><tr><th>1</th><th>2</th><th>3</th></tr></thead><tbody><tr><td>2</td><td>3</td><td>4</td></tr><tr><td>3</td><td>4</td><td>5</td></tr></tbody></table>', Html::table([ 1, 2, 3 ], [ [ 2, 3, 4 ], [ 3, 4, 5 ] ], [ 'class' => 'table' ]));
 		}
 	}
