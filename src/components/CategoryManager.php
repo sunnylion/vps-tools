@@ -5,12 +5,14 @@
 
 	/**
 	 * This class is intended to manage category tree which is in turn based on
-	 * nested sets behavior.
-	 * [[https://github.com/creocoder/yii2-nested-sets]]
-	 * @package common\components
-	 * @property-read array    $all
-	 * @property-read Category $root
-	 * @property-write string  $modelClass
+	 * nested sets behavior. Yii2 nested set behavior is used - https://github.com/creocoder/yii2-nested-set
+	 *
+	 * @author        Anna Manaenkova <anna.manaenkova@phystech.edu>
+	 * @package       vps\tools\components
+	 *
+	 * @property  array   $all
+	 * @property Category $root
+	 * @property  string  $modelClass
 	 */
 	class CategoryManager extends \yii\base\Object
 	{
@@ -30,7 +32,7 @@
 		protected $_modelClass = '\common\models\Category';
 
 		/**
-		 * @var [[Category]] Root category.
+		 * @var Category Root category.
 		 */
 		protected $_root;
 
@@ -73,7 +75,7 @@
 
 		/**
 		 * Gets children of current category.
-		 * @param [[Category]] $category
+		 * @param Category $category
 		 * @return array
 		 */
 		public function getChildren ($category)
@@ -88,9 +90,9 @@
 
 		/**
 		 * Finds category parent with given depth.
-		 * @param  [[Category]] $category
-		 * @param int $depth
-		 * @return [[Category]]|null
+		 * @param  Category $category
+		 * @param int       $depth
+		 * @return Category|null
 		 */
 		public function getParent ($category, $depth = 1)
 		{
@@ -108,8 +110,8 @@
 
 		/**
 		 * Finds all parents from top one to nearest.
-		 * @param  [[Category]] $category
-		 * @return [[Category]][]|null
+		 * @param  Category $category
+		 * @return Category[]|null
 		 */
 		public function getParents ($category)
 		{
@@ -138,7 +140,7 @@
 		/**
 		 * Gets single category by its ID.
 		 * @param integer $id
-		 * @return [[Category]]|null
+		 * @return Category|null
 		 */
 		public function get ($id)
 		{
@@ -152,7 +154,7 @@
 		/**
 		 * Gets single category by its GUID path.
 		 * @param string $guidPath
-		 * @return [[Category]]|null
+		 * @return Category|null
 		 */
 		public function getByGuidPath ($guidPath)
 		{
@@ -211,7 +213,7 @@
 
 			if ($category == null)
 				return null;
-			elseif (empty( $category->guidPath ))
+			elseif (empty($category->guidPath))
 				$this->buildPaths();
 
 			return $category->guidPath;
@@ -228,7 +230,7 @@
 
 			if ($category == null)
 				return null;
-			elseif (empty( $category->titlePath ))
+			elseif (empty($category->titlePath))
 				$this->buildPaths();
 
 			return $category->titlePath;

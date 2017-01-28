@@ -14,11 +14,13 @@
 		"yiisoft/yii2": ">=2.0.7",
 		"yiisoft/yii2-bootstrap": ">=2.0.0",
 		"yiisoft/yii2-authclient": ">=2.0.0",
+		"yiisoft/yii2-apidoc": ">=2.0.0",
 		"creocoder/yii2-nested-sets": "*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "*",
-		"phpunit/dbunit": "*"
+		"phpunit/dbunit": "*",
+		"phpdocumentor/phpdocumentor": "*"
 	},
 	"autoload": {
 		"psr-4": {
@@ -26,6 +28,10 @@
 		}
 	},
 	"extra": {
+		"asset-installer-paths": {
+			"npm-asset-library": "vendor/npm",
+			"bower-asset-library": "vendor/bower"
+		},
 		"branch-alias": {
 			"dev-master": "1.0.x-dev"
 		}
