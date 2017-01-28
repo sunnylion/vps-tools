@@ -10,6 +10,7 @@
 
 		/**
 		 * Clears given directory without deleting it itself.
+		 *
 		 * @param  string $path
 		 * @return boolean
 		 */
@@ -40,6 +41,7 @@
 
 		/**
 		 * Recursively count files and directories in given directory.
+		 *
 		 * @param string $path
 		 * @return int|null
 		 */
@@ -63,8 +65,8 @@
 
 		/**
 		 * Counts files and directories in given directory. Not recursive.
-		 * @param  string $path The directory under which the items shoul be
-		 *                      counted.
+		 *
+		 * @param  string $path The directory under which the items should be counted.
 		 * @return integer|null
 		 */
 		public static function countItemsInDir ($path)
@@ -81,6 +83,7 @@
 
 		/**
 		 * Deletes given file without rising an exception.
+		 *
 		 * @param string $path
 		 * @return bool
 		 */
@@ -99,10 +102,9 @@
 
 		/**
 		 * Gets directories list in given directory.
-		 * @param  string  $path     The directory under which the items will
-		 *                           be looked for.
-		 * @param  boolean $absolute Whether return path to items should be
-		 *                           absolute.
+		 *
+		 * @param  string  $path The directory under which the items will be looked for.
+		 * @param  boolean $absolute Whether return path to items should be absolute.
 		 * @return array|null List of paths to the found items.
 		 */
 		public static function listDirs ($path, $absolute = false)
@@ -125,10 +127,9 @@
 
 		/**
 		 * Gets files list in given directory.
-		 * @param  string  $path     The directory under which the items will
-		 *                           be looked for.
-		 * @param  boolean $absolute Whether return path to items should be
-		 *                           absolute.
+		 *
+		 * @param  string  $path The directory under which the items will be looked for.
+		 * @param  boolean $absolute Whether return path to items should be absolute.
 		 * @return array|null List of paths to the found items.
 		 */
 		public static function listFiles ($path, $absolute = false)
@@ -151,10 +152,9 @@
 
 		/**
 		 * Gets files and directories list in given directory.
-		 * @param  string  $path     The directory under which the items will
-		 *                           be looked for.
-		 * @param  boolean $absolute Whether return path to items should be
-		 *                           absolute.
+		 *
+		 * @param  string  $path The directory under which the items will be looked for.
+		 * @param  boolean $absolute Whether return path to items should be absolute.
 		 * @return array|null List of paths to the found items.
 		 */
 		public static function listItems ($path, $absolute = false)
@@ -176,11 +176,10 @@
 		/**
 		 * Gets files and directories list in given directory and order it by
 		 * modification time. Not recursive.
-		 * @param  string  $path  The directory under which the files will be
-		 *                        looked for.
+		 *
+		 * @param  string  $path The directory under which the files will be looked for.
 		 * @param  integer $order Order direction. Default is descending.
-		 * @return array|null Array of pairs 'modification time - full path to
-		 *                        the file'.
+		 * @return array|null Array of pairs 'modification time - full path to the file'.
 		 */
 		public static function listItemsByDate ($path, $order = SORT_DESC)
 		{
@@ -206,11 +205,10 @@
 
 		/**
 		 * Gets files list in given directory that match pattern.
+		 *
 		 * @param  string  $pattern
-		 * @param  string  $path     The directory under which the items will
-		 *                           be looked for.
-		 * @param  boolean $absolute Whether return path to items should be
-		 *                           absolute.
+		 * @param  string  $path The directory under which the items will be looked for.
+		 * @param  boolean $absolute Whether return path to items should be absolute.
 		 * @return array List of paths to the found items.
 		 */
 		public static function listPatternItems ($path, $pattern = '*', $absolute = false)
@@ -235,8 +233,8 @@
 		}
 
 		/**
-		 * Finds recursively files in given path and return list of paths
-		 * relative to secondparam.
+		 * Finds recursively files in given path and return list of paths relative to second parameter.
+		 *
 		 * @param  string $path
 		 * @param  string $relativepath
 		 * @return array
@@ -263,6 +261,7 @@
 
 		/**
 		 * Get mimetype of the given file.
+		 *
 		 * @param  string $path Path to the file.
 		 * @return string|null
 		 */

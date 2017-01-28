@@ -62,7 +62,7 @@
 		 */
 		public function init ()
 		{
-			if (isset( $_SESSION[ 'notification' ] ))
+			if (isset($_SESSION[ 'notification' ]))
 			{
 				$notification = $_SESSION[ 'notification' ];
 				foreach ($notification as $type => $data)
@@ -112,10 +112,8 @@
 		/**
 		 * Adds notification of type 'error' to list.
 		 * @param    string  $message Message.
-		 * @param    boolean $isRaw   Whether given message is raw text or
-		 *                            should be translated.
+		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
 		 * @return    void
-		 * @see    add()
 		 */
 		public function error ($message, $isRaw = false)
 		{
@@ -125,10 +123,8 @@
 		/**
 		 * Saves notification of type 'error' type to session.
 		 * @param    string  $message Message.
-		 * @param    boolean $isRaw   Whether given message is raw text or
-		 *                            should be translated.
-		 * @return    void
-		 * @see    toSession()
+		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
+		 * @return  void
 		 */
 		public function errorToSession ($message, $isRaw = false)
 		{
@@ -138,10 +134,8 @@
 		/**
 		 * Adds notification of type 'message' to list.
 		 * @param    string  $message Message.
-		 * @param    boolean $isRaw   Whether given message is raw text or
-		 *                            should be translated.
+		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
 		 * @return    void
-		 * @see    add()
 		 */
 		public function message ($message, $isRaw = false)
 		{
@@ -151,10 +145,8 @@
 		/**
 		 * Saves notification of type 'message' type to session.
 		 * @param    string  $message Message.
-		 * @param    boolean $isRaw   Whether given message is raw text or
-		 *                            should be translated.
+		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
 		 * @return    void
-		 * @see    toSession()
 		 */
 		public function messageToSession ($message, $isRaw = false)
 		{
@@ -164,10 +156,8 @@
 		/**
 		 * Adds notification of type 'warning' to list.
 		 * @param    string  $message Message.
-		 * @param    boolean $isRaw   Whether given message is raw text or
-		 *                            should be translated.
-		 * @return    void
-		 * @see    add()
+		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
+		 * @return   void
 		 */
 		public function warning ($message, $isRaw = false)
 		{
@@ -177,10 +167,8 @@
 		/**
 		 * Saves notification of type 'warning' type to session.
 		 * @param  string  $message Message.
-		 * @param  boolean $isRaw   Whether given message is raw text or should
-		 *                          be translated.
+		 * @param  boolean $isRaw   Whether given message is raw text or should be translated.
 		 * @return void
-		 * @see    toSession()
 		 */
 		public function warningToSession ($message, $isRaw = false)
 		{
@@ -191,12 +179,8 @@
 		 * Adds notification to list.
 		 * @param    string  $message Message.
 		 * @param    integer $type    Message type.
-		 * @param    boolean $isRaw   Whether given message is raw text or
-		 *                            should be translated.
+		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
 		 * @return    void
-		 * @see    error()
-		 * @see    message()
-		 * @see    warning()
 		 */
 		private function add ($message, $type = Notification::ERROR, $isRaw = false)
 		{
@@ -207,9 +191,6 @@
 		 * Finds all notifications of given type.
 		 * @param int $type
 		 * @return array
-		 * @see getErrors()
-		 * @see getMessages()
-		 * @see getWarnings()
 		 */
 		private function getNotifications ($type)
 		{
@@ -228,18 +209,14 @@
 		 * Saves notification to session.
 		 * @param    string  $message Message.
 		 * @param    integer $type    Message type.
-		 * @param    boolean $isRaw   Whether given message is raw text or
-		 *                            should be translated.
+		 * @param    boolean $isRaw   Whether given message is raw text or should be translated.
 		 * @return void
-		 * @see    errorToSession()
-		 * @see    messageToSession()
-		 * @see    warningToSession()
 		 */
 		private function toSession ($message, $type = Notification::ERROR, $isRaw = false)
 		{
 			$ntf = new Notification($message, $type, $isRaw);
 
-			$notification = isset( $_SESSION[ 'notification' ] ) ? $_SESSION[ 'notification' ] : [];
+			$notification = isset($_SESSION[ 'notification' ]) ? $_SESSION[ 'notification' ] : [];
 			$notification[ $type ][] = $ntf->message;
 
 			$_SESSION[ 'notification' ] = $notification;

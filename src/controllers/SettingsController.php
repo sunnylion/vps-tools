@@ -1,7 +1,6 @@
 <?php
 	namespace vps\tools\controllers;
 
-	use Yii;
 	use vps\tools\helpers\Console;
 
 	/**

@@ -7,6 +7,7 @@
 	{
 		/**
 		 * Overwritten method. By default i18n is used.
+		 *
 		 * @inheritdoc
 		 */
 		public static function a ($text, $url = null, $options = [])
@@ -36,12 +37,12 @@
 
 		/**
 		 * Creates button checkbox or radio group.
+		 *
 		 * @link http://getbootstrap.com/javascript/#buttons-checkbox-radio
-		 * @param string            $name     Name for the inputs.
+		 * @param string            $name Name for the inputs.
 		 * @param string|array|null $selected Selected values.
-		 * @param array             $items    The data item used to generate the checkboxes. The array keys are the
-		 *                                    input values, while the array values are the corresponding labels.
-		 * @param string            $type     Input type - checkbox/radio.
+		 * @param array             $items The data item used to generate the checkboxes. The array keys are the input values, while the array values are the corresponding labels.
+		 * @param string            $type Input type - checkbox/radio.
 		 * @return string
 		 */
 		public static function buttonGroup ($name, $selected, $items, $type = 'checkbox')
@@ -60,8 +61,9 @@
 
 		/**
 		 * Creates button with FontAwesome icon.
-		 * @param string $text    Button text.
-		 * @param string $fa      Icon name.
+		 *
+		 * @param string $text Button text.
+		 * @param string $fa Icon name.
 		 * @param array  $options Additional options.
 		 * @return string
 		 */
@@ -85,6 +87,7 @@
 
 		/**
 		 * Compresses HTML, removes all new lines, tabs and spaces.
+		 *
 		 * @param string $input
 		 * @param array  $preserve
 		 * @return string Compressed output.
@@ -140,6 +143,7 @@
 
 		/**
 		 * Generates Font-Awesome icon.
+		 *
 		 * @param string $name Font-Awesome icon name. Will be appended after 'fa-' prefix.
 		 * @param array  $options
 		 * @return string
@@ -155,13 +159,14 @@
 
 		/**
 		 * Generates bootstrap list group with order displayed.
-		 * @param array $items   Array of elements with following structure:
-		 *                       * title - item title.
-		 *                       * order - Item order.
-		 *                       * id
+		 *
+		 * @param array $items Array of elements with following structure:
+		 * * title - item title.
+		 * * order - Item order.
+		 * * id
 		 * @param array $options In addition to common options this could contain:
-		 *                       * orderClass - class for the span element that contains item order number.
-		 *                       * title - Title for the list group.
+		 * * orderClass - class for the span element that contains item order number.
+		 * * title - Title for the list group.
 		 * @return string
 		 */
 		public static function listGroupOrder ($items, $options = [])
@@ -180,6 +185,7 @@
 
 		/**
 		 * Generates table.
+		 *
 		 * @param array $head
 		 * @param array $body
 		 * @param array $options
