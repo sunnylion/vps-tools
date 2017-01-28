@@ -5,6 +5,7 @@
 	{
 		/**
 		 * Adds column to multidimensional array. First level keys of $array must be the same as $column keys.
+		 *
 		 * @param  array $array
 		 * @param  array $column
 		 * @return array
@@ -13,7 +14,7 @@
 		{
 			$return = $array;
 			// Check if keys are the same.
-			if (count($return) == count($column) and empty( array_diff(array_keys($return), array_keys($column)) ))
+			if (count($return) == count($column) and empty(array_diff(array_keys($return), array_keys($column))))
 			{
 				foreach ($return as $k => &$ret)
 					$ret[] = $column[ $k ];
@@ -24,9 +25,9 @@
 
 		/**
 		 * Unsets an element and returns its value.
+		 *
 		 * @param array  $array
-		 * @param string $key Key name of the array element, may be specified in a dot format to retrieve the value of
-		 *                    a sub-array or the property of an embedded object.
+		 * @param string $key Key name of the array element, may be specified in a dot format to retrieve the value of a sub-array or the property of an embedded object.
 		 * @return mixed Value of the removed element.
 		 */
 		public static function delete (&$array, $key)
@@ -39,7 +40,7 @@
 				if (array_key_exists($key, $array))
 				{
 					$value = $array[ $key ];
-					unset( $array[ $key ] );
+					unset($array[ $key ]);
 				}
 
 				if (( $pos = strpos($key, '.') ) !== false)
@@ -55,18 +56,18 @@
 
 		/**
 		 * Recursively sets all empty value in array to null.
+		 *
 		 * @param  array $array
-		 * @return array|null Exactly the input array but with null values instead of empty ones. Null if $array is not
-		 *                    array
+		 * @return array|null Exactly the input array but with null values instead of empty ones. Null if $array is not array.
 		 */
 		public static function emptyToNull ($array)
 		{
 			if (is_array($array))
 			{
-				$return = [ ];
+				$return = [];
 				foreach ($array as $key => $item)
 				{
-					if (empty( $item ))
+					if (empty($item))
 						$return[ $key ] = null;
 					elseif (is_array($item))
 						$return[ $key ] = self::emptyToNull($item);
@@ -82,6 +83,7 @@
 
 		/**
 		 * Checks if all elements in array are equal.
+		 *
 		 * @param array   $array
 		 * @param boolean $strict Whether strict comparison should be used.
 		 * @return boolean|null
@@ -111,6 +113,7 @@
 
 		/**
 		 * Selects from the array given keys.
+		 *
 		 * @param  array $array
 		 * @param  array $keys
 		 * @return array Values found with their corresponding keys.
@@ -119,11 +122,11 @@
 		{
 			if (is_array($array))
 			{
-				$return = [ ];
+				$return = [];
 				if (!is_array($keys))
 					$keys = [ $keys ];
 				foreach ($keys as $key)
-					if (isset( $array[ $key ] ))
+					if (isset($array[ $key ]))
 						$return[ $key ] = $array[ $key ];
 
 				return $return;
@@ -134,6 +137,7 @@
 
 		/**
 		 * Flattens multidimensional array. Does not preserve key.
+		 *
 		 * @param  array $array Array to be flattened.
 		 * @return array Flattened array.
 		 */
@@ -142,7 +146,7 @@
 			if (!is_array($array))
 				return null;
 
-			$flatten = [ ];
+			$flatten = [];
 			$it = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($array));
 			foreach ($it as $v)
 				$flatten[] = $v;
@@ -152,6 +156,7 @@
 
 		/**
 		 * Checks if all keys exist in given array.
+		 *
 		 * @param array $array
 		 * @param array $keys
 		 * @return bool|null
@@ -173,6 +178,7 @@
 
 		/**
 		 * Merges columns of the same length in multi-array.
+		 *
 		 * @param  array $column1
 		 * @param  array $column2
 		 * @param  array $column3 ...
@@ -180,11 +186,11 @@
 		 */
 		public static function mergeColumns ()
 		{
-			$count = [ ];
+			$count = [];
 			$args = func_get_args();
 
 			if (count($args) == 0)
-				return [ ];
+				return [];
 
 			foreach ($args as $arg)
 			{
@@ -196,11 +202,11 @@
 			if (!self::equal($count))
 				return null;
 
-			$data = [ ];
+			$data = [];
 			$n = $count[ 0 ];
 			for ($i = 0; $i < $n; $i++)
 			{
-				$item = [ ];
+				$item = [];
 				foreach ($args as $arg)
 					$item[] = $arg[ $i ];
 				$data[] = $item;
@@ -211,15 +217,16 @@
 
 		/**
 		 * Gets random elements from array.
+		 *
 		 * @param array   $array Input array.
-		 * @param integer $num   Number of element to extract.
+		 * @param integer $num Number of element to extract.
 		 * @return array|null Array with random element from $array. Null if $array is not array.
 		 */
 		public static function mix ($array, $num)
 		{
 			if (is_array($array))
 			{
-				$data = [ ];
+				$data = [];
 				$num = min($num, count($array));
 				if ($num > 0)
 				{
@@ -238,6 +245,7 @@
 
 		/**
 		 * Get given attribute from array of objects.
+		 *
 		 * @param  array  $objects
 		 * @param  string $attribute Attribute name.
 		 * @return array
@@ -247,18 +255,19 @@
 			if (!is_array($objects))
 				return null;
 
-			$data = [ ];
+			$data = [];
 			foreach ($objects as $object)
-				$data[] = isset ( $object->$attribute ) ? $object->$attribute : null;
+				$data[] = isset ($object->$attribute) ? $object->$attribute : null;
 
 			return $data;
 		}
 
 		/**
 		 * Recursively finds given attribute from array of objects.
+		 *
 		 * @param  array  $objects
 		 * @param  string $attribute Attribute name.
-		 * @param  string $children  Children attribute name.
+		 * @param  string $children Children attribute name.
 		 * @return array
 		 */
 		public static function objectsAttributeRecursive ($objects, $attribute, $children = 'children')
@@ -266,12 +275,12 @@
 			if (!is_array($objects))
 				return null;
 
-			$data = [ ];
+			$data = [];
 			foreach ($objects as $item)
 			{
-				if (isset( $item->$attribute ))
+				if (isset($item->$attribute))
 					$data[] = $item->$attribute;
-				if (isset( $item->$children ))
+				if (isset($item->$children))
 					$data = array_merge($data, self::objectsAttributeRecursive($item->$children, $attribute, $children));
 			}
 
@@ -280,9 +289,9 @@
 
 		/**
 		 * Set array to multidimensional array.
+		 *
 		 * @param array  $array
-		 * @param string $key   Key name of the array element, may be specified in a dot format to retrieve the value
-		 *                      of a sub-array or the property of an embedded object.
+		 * @param string $key Key name of the array element, may be specified in a dot format to retrieve the value of a sub-array or the property of an embedded object.
 		 * @param mixed  $value Value to be set.
 		 */
 		public static function setValue (&$array, $key, $value)
@@ -297,22 +306,24 @@
 				{
 					$newkey = substr($key, 0, $pos);
 					if (!is_array($array) or !array_key_exists($newkey, $array))
-						$array[ $newkey ] = [ ];
+						$array[ $newkey ] = [];
 					static::setValue($array[ $newkey ], substr($key, $pos + 1), $value);
 				}
 			}
 		}
-		
+
 		/**
-		 * Checks whether given array is accosiative.
+		 * Checks whether given array is associative.
+		 *
 		 * @param  array $a
 		 * @return boolean
 		 */
-		public static function isAssoc($a)
+		public static function isAssoc ($a)
 		{
-			foreach(array_keys($a) as $key)
+			foreach (array_keys($a) as $key)
 				if (!is_int($key))
 					return true;
+
 			return false;
 		}
 	}

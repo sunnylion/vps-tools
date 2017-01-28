@@ -18,23 +18,31 @@
 
 		/**
 		 * Adds 'role' attribute.
+		 *
 		 * @inheritdoc
 		 */
 		public $options = [ 'role' => 'form' ];
 
 		/**
 		 * Default layout is set to horizontal.
+		 *
 		 * @inheritdoc
 		 */
 		public $layout = 'horizontal';
 
 		/**
 		 * Default layout for single form group.
+		 *
 		 * @inheritdoc
 		 */
 		public $fieldConfig = [
 			'template'             => '{beginLabel}{labelTitle}{endLabel}{beginWrapper}{input}{hint}{error}{endWrapper}',
-			'horizontalCssClasses' => [ 'label' => 'col-md-3', 'wrapper' => 'col-md-9', 'hint' => '', 'error' => 'error-block' ],
+			'horizontalCssClasses' => [
+				'label'   => 'col-md-3',
+				'wrapper' => 'col-md-9',
+				'hint'    => '',
+				'error'   => 'error-block'
+			],
 			'errorOptions'         => [ 'encode' => false ],
 		];
 
@@ -55,6 +63,7 @@
 
 		/**
 		 * Adds some default configuration. I.e. form name and layout class.
+		 *
 		 * @inheritdoc
 		 */
 		public function init ()
@@ -73,6 +82,7 @@
 
 		/**
 		 * Whether the form should perform file upload.
+		 *
 		 * @property-set bool $upload
 		 * @param $upload
 		 */

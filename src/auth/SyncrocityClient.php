@@ -4,11 +4,23 @@
 	use Yii;
 	use yii\authclient\OAuth2;
 
+	/**
+	 * This class performs oAuth provider functionality with Syncrocity client.
+	 *
+	 * @property string $clientIdDb oAuth app id from database setting name.
+	 * @property string $clientSecretDb oAuth secret key from database setting name.
+	 * @property string $clientUrlDb oAuth URL from database setting name.
+	 * @property string $url Base URL to perform request.
+	 *
+	 * @author  Anna Manaenkova <anna.manaenkova@phystech.edu>
+	 * @package vps\tools\auth
+	 */
 	class SyncrocityClient extends OAuth2
 	{
 		/**
 		 * Set client ID from DB settings.
-		 * @see [[\vps\tools\components\SettingManager]]
+		 *
+		 * @see \vps\tools\components\SettingManager
 		 * @param string $name
 		 */
 		public function setClientIdDb ($name)
@@ -18,7 +30,8 @@
 
 		/**
 		 * Set client secret from DB settings.
-		 * @see [[\vps\tools\components\SettingManager]]
+		 *
+		 * @see \vps\tools\components\SettingManager
 		 * @param string $name
 		 */
 		public function setClientSecretDb ($name)
@@ -28,7 +41,8 @@
 
 		/**
 		 * Set client URL from DB settings.
-		 * @see [[\vps\tools\components\SettingManager]]
+		 *
+		 * @see \vps\tools\components\SettingManager
 		 * @param string $name
 		 */
 		public function setClientUrlDb ($name)
@@ -38,6 +52,7 @@
 
 		/**
 		 * Set all necessary URLs by using given one as base.
+		 *
 		 * @param string $url
 		 */
 		public function setUrl ($url)

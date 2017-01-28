@@ -1,10 +1,11 @@
 <?php
 	namespace vps\tools\helpers;
-	
+
 	class StringHelper extends \yii\helpers\BaseStringHelper
 	{
 		/**
 		 * Removes all characters from string except letters, digits, underscore, hyphen and whitespace characters.
+		 *
 		 * @param string $str string
 		 * @return string converted string
 		 */
@@ -15,6 +16,7 @@
 
 		/**
 		 * Overrides parent method with $skipEmpty default value set to true.
+		 *
 		 * @inheritdoc
 		 */
 		public static function explode ($string, $delimiter = ',', $trim = true, $skipEmpty = true)
@@ -24,6 +26,7 @@
 
 		/**
 		 * Explodes string with multiple delimiters.
+		 *
 		 * @param string   $string
 		 * @param string[] $delimiters
 		 * @return array|null
@@ -41,11 +44,11 @@
 
 		/**
 		 * Gets the position of nth occurrence of character.
+		 *
 		 * @param  string  $string String to be searched for character.
 		 * @param  string  $char
-		 * @param  integer $n      Which occurrence to search for. If negative then character will be searched from the
-		 *                         end of string.
-		 * @return integer|null    Nth occurrence (if existed), null otherwise.
+		 * @param  integer $n Which occurrence to search for. If negative then character will be searched from the end of string.
+		 * @return integer|null Nth occurrence (if existed), null otherwise.
 		 * @see rpos
 		 */
 		public static function pos ($string, $char, $n = 1)
@@ -66,8 +69,9 @@
 
 		/**
 		 * Generates random string from latin letters and numbers.
+		 *
 		 * @param int     $length Desired string length.
-		 * @param boolean $upper  Whether use also upper letters.
+		 * @param boolean $upper Whether use also upper letters.
 		 * @return string|null Generated string.
 		 */
 		public static function random ($length = 10, $upper = false)
@@ -86,11 +90,11 @@
 
 		/**
 		 * Gets the position of nth occurrence of character from the end of string.
+		 *
 		 * @param  string  $string String to be searched for character.
 		 * @param  string  $char
-		 * @param  integer $n      Which occurrence to search for. If negative then character will be searched from the
-		 *                         begin of string.
-		 * @return integer|null    Nth occurrence (if existed), null otherwise.
+		 * @param  integer $n Which occurrence to search for. If negative then character will be searched from the begin of string.
+		 * @return integer|null Nth occurrence (if existed), null otherwise.
 		 * @see pos
 		 */
 		public static function rpos ($string, $char, $n = 1)
