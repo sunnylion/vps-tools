@@ -34,7 +34,7 @@
 		{
 			echo "    > drop view $name ...";
 			$time = microtime(true);
-			$this->db->createCommand('DROP VIEW IF EXISTS ' . $this->db->quoteTableName($name));
+			$this->db->createCommand('DROP VIEW IF EXISTS ' . $this->db->quoteTableName($name))->execute();
 			echo ' done (time: ' . sprintf('%.3f', microtime(true) - $time) . "s)\n";
 		}
 
